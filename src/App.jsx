@@ -3,14 +3,15 @@ import Toolbar from './Toolbar';
 import BoardList from './BoardList';
 
 
-function App() {
+const App = () => {
   return (
     <div>
       <header>
-        <h1>KudoBoard</h1>
+        <h1>Kudos Board</h1>
         <Toolbar />
       </header>
       <main>
+        <h1> hi</h1>
         <BoardList />
       </main>
       <footer></footer>
