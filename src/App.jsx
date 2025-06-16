@@ -7,6 +7,8 @@ import BoardList from './BoardList';
 import Footer from './Footer';
 import {useState} from 'react';
 
+import BoardPage from './BoardPage'
+
 
 const App = () => {
   // hold board cards in an array of board components
@@ -38,6 +40,8 @@ const App = () => {
       </header>
       <main>
         <BoardList boardList={boards} />
+
+        <BoardPage boardInfo={boards[0]} />
       </main>
       <footer></footer>
     </div>

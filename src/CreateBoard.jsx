@@ -12,6 +12,7 @@ const CreateBoard = ({onCloseModal, onCreate}) => {
             category: event.target.category.value,
             image: event.target.image.value,
             author: event.target.author.value ? event.target.author.value : "",
+            cards: []
         }
         onCreate(newBoard);
         onCloseModal();

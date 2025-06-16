@@ -1,17 +1,24 @@
 import React from "react";
 import {useState} from 'react';
+import BoardPage from './BoardPage'
 
 const Board = ({boardInfo}) => {
-    console.log(boardInfo);
+    const [openBoard, setOpenBoard] = useState(false);
+    
+    const toggleBoardPage = () => {
+        setOpenBoard((prev) => !prev);
+    }
+
     return(
         <div className="board-container">
             <img src={boardInfo.image}/>
             <p>{boardInfo.title}</p>
             <p>{boardInfo.category}</p>
             <div className="board-btns">
-                <button>View Board</button>
+                <button onClick={toggleBoardPage}>View Board</button>
                 <button>Delete Board</button>
             </div>
+            {openBoard && <BoardPage boardInfo={boardInfo} />}
         </div>
     )
 }
