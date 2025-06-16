@@ -1,11 +1,11 @@
 import React from 'react';
 import './CreateBoard.css';
 
-const CreateCard = ({}) => {
+const CreateCard = ({onClose}) => {
     return (
         <section className='modal' id='create-card-modal'>
             <div className='modal-content'>
-                <button className='modal-close'>&times;</button>
+                <button className='modal-close' onClick={onClose}>&times;</button>
                 <h2>Create a New Card</h2>
                 <form className='create-form'>
                     <input type='text' name='cardTitle' id='cardTitle' placeholder='Enter card title' required/>
