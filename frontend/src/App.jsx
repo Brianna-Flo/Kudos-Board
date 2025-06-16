@@ -1,12 +1,12 @@
 import "./App.css";
 // import Toolbar from './Toolbar';
 import SearchBar from "./SearchBar";
-import Categories from "./Categories";
+import CategoryButton from "./CategoryButton";
 import CreateBoard from './CreateBoard'
 import BoardList from './BoardList';
 import Footer from './Footer';
 import {useState} from 'react';
-
+import { categoryOptions } from "./utils/utils";
 import BoardPage from './BoardPage'
 import CreateCard from './CreateCard'
 
@@ -20,13 +20,6 @@ const App = () => {
       setModalOpen((prev) => !prev);
   }
 
-  const handleCreateBoard = (newBoard) => {
-    console.log("new board",newBoard)
-    setBoards((prev) => [...prev, newBoard]);
-    console.log("setting boards");
-    console.log(boards)
-  }
-
   return (
     <div className="app-container">
       <section id="banner">
@@ -35,7 +28,11 @@ const App = () => {
       <header className='homepage-header'>
         <div className='toolbar'>
           <SearchBar />
-          <Categories />
+          <div className="category-btns">
+            {categoryOptions.map((category) => {
+              return (<CategoryButton category={category} />)
+            })}
+          </div>
           <button onClick={toggleModal}>Create New Board</button>
           {/* {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleCreateBoard} />} */}
           {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={(newBoard) => {setBoards((prev) => [...prev, newBoard])}} />}
