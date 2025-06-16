@@ -1,12 +1,13 @@
 import "./App.css";
 import Toolbar from './Toolbar';
 import BoardList from './BoardList';
+import Footer from './Footer';
 
 
 const App = () => {
   return (
-    <div>
-      <header>
+    <div className="app-container">
+      <header className='homepage-header'>
         <h1>Kudos Board</h1>
         <Toolbar />
       </header>

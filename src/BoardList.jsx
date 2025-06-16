@@ -9,13 +9,14 @@ const BoardList = () => {
   return (
     <div className="board-list">
       {
+        // if there are no boards display welcome message
         boards.length === 0 ? (
             <section className='welcome'>
                 <h2>Welcome to the Kudos Board!</h2>
                 <p>Click create a new board to get started</p>
             </section>
         ) : (
-            // ternary operator if there are no boards
+            // otherwise display board components
             boards.map((board) => {
                 return (<Board />);
             }
