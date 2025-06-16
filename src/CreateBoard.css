@@ -53,9 +53,9 @@
 .create-board-form {
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    text-align: left;
 }
 
-.create-board-form {
-    text-align: left;
+.create-board-form input, select {
+    margin-bottom: 0.75vh;
 }
