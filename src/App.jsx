@@ -41,7 +41,7 @@ const App = () => {
       <main>
         <BoardList boardList={boards} />
 
-        <BoardPage boardInfo={boards[0]} />
+        {/* <BoardPage boardInfo={boards[0]} /> */}
       </main>
       <footer></footer>
     </div>

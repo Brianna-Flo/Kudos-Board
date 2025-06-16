@@ -18,7 +18,7 @@ const Board = ({boardInfo}) => {
                 <button onClick={toggleBoardPage}>View Board</button>
                 <button>Delete Board</button>
             </div>
-            {openBoard && <BoardPage boardInfo={boardInfo} />}
+            {openBoard && <BoardPage onClosePage={toggleBoardPage} boardInfo={boardInfo} />}
         </div>
     )
 }
