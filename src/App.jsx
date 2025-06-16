@@ -8,6 +8,7 @@ import Footer from './Footer';
 import {useState} from 'react';
 
 import BoardPage from './BoardPage'
+import CreateCard from './CreateCard'
 
 
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
         <BoardList boardList={boards} />
 
         {/* <BoardPage boardInfo={boards[0]} /> */}
+        <CreateCard/>
       </main>
       <footer></footer>
     </div>
