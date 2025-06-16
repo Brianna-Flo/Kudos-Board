@@ -23,7 +23,7 @@ const CreateBoard = ({onCloseModal, onCreate}) => {
             <div className='modal-content'>
                 <button className='modal-close' onClick={onCloseModal}>&times;</button>
                 <h2>Create a New Board</h2>
-                <form className='create-board-form' onSubmit={handleCreate}>
+                <form className='create-form' onSubmit={handleCreate}>
                     <label htmlFor='boardTitle'>Title:</label>
                     <input type='text' name='boardTitle' id='boardTitle' required/>
                     <label htmlFor='description'>Description:</label>

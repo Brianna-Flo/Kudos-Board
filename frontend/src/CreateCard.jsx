@@ -1,13 +1,13 @@
 import React from 'react';
 import './CreateBoard.css';
 
-const CreateCard = () => {
+const CreateCard = ({}) => {
     return (
         <section className='modal' id='create-card-modal'>
             <div className='modal-content'>
                 <button className='modal-close'>&times;</button>
                 <h2>Create a New Card</h2>
-                <form className='create-card-form'>
+                <form className='create-form'>
                     <input type='text' name='cardTitle' id='cardTitle' placeholder='Enter card title' required/>
                     <input type='text' name='cardDescription' id='cardDescription' placeholder='Enter card description' required/>
                     <input type='text' name='searchGIFs' id='searchGIFs' placeholder='Search GIFs...'/>

@@ -50,7 +50,7 @@
   cursor: pointer;
 }
 
-.create-board-form {
+.create-form {
     display: flex;
     flex-direction: column;
     text-align: left;
