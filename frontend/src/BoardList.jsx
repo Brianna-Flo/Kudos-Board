@@ -25,11 +25,11 @@ const BoardList = ({boardList}) => {
           </section>
         ) : (
           <div className="board-list">
-            <Board boardInfo={testBoard} />
-            {/* {boardList.map((board) => {
+            {/* <Board boardInfo={testBoard} /> */}
+            {boardList.map((board) => {
                 return (<Board key={uuidv4()} boardInfo={board}/>);
             }
-          )} */}
+          )}
           </div>
         )}
       </div>

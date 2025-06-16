@@ -7,8 +7,8 @@ import BoardList from './BoardList';
 import Footer from './Footer';
 import {useState} from 'react';
 import { categoryOptions } from "./utils/utils";
-import BoardPage from './BoardPage'
-import CreateCard from './CreateCard'
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 const App = () => {
@@ -30,10 +30,10 @@ const App = () => {
           <SearchBar />
           <div className="category-btns">
             {categoryOptions.map((category) => {
-              return (<CategoryButton category={category} />)
+              return (<CategoryButton key={uuidv4()} category={category} />)
             })}
           </div>
-          <button onClick={toggleModal}>Create New Board</button>
+          <button onClick={toggleModal} className="buttons">Create New Board</button>
           {/* {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleCreateBoard} />} */}
           {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={(newBoard) => {setBoards((prev) => [...prev, newBoard])}} />}
         </div>
