@@ -18,8 +18,10 @@ const App = () => {
   }
 
   const handleCreateBoard = (newBoard) => {
+    console.log("new board",newBoard)
     setBoards((prev) => [...prev, newBoard]);
-    console.log(setBoards);
+    console.log("setting boards");
+    console.log(boards)
   }
 
   return (

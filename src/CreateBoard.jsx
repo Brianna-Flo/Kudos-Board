@@ -7,11 +7,11 @@ const CreateBoard = ({onCloseModal, onCreate}) => {
         event.preventDefault();
         // create an object containing information to use on the created board
         const newBoard = {
-            title: event.target.title,
+            title: event.target.boardTitle.value,
             description: event.target.description.value,
             category: event.target.category.value,
             image: event.target.image.value,
-            author: event.target.author.value,
+            author: event.target.author.value ? event.target.author.value : "",
         }
         onCreate(newBoard);
         onCloseModal();
@@ -23,8 +23,8 @@ const CreateBoard = ({onCloseModal, onCreate}) => {
                 <button className='modal-close' onClick={onCloseModal}>&times;</button>
                 <h2>Create a New Board</h2>
                 <form className='create-board-form' onSubmit={handleCreate}>
-                    <label htmlFor='title'>Title:</label>
-                    <input type='text' name='title' id='title' required/>
+                    <label htmlFor='boardTitle'>Title:</label>
+                    <input type='text' name='boardTitle' id='boardTitle' required/>
                     <label htmlFor='description'>Description:</label>
                     <input type='text' name='description' id='description' required/>
                     <label>Category:</label>
@@ -36,7 +36,7 @@ const CreateBoard = ({onCloseModal, onCreate}) => {
                         <option id="inspiration" value="inspiration">Inspiration</option>
                     </select>
                     <label htmlFor='image'>Image:</label>
-                    <input type='file' name='image' id='image' required/>
+                    <input type='text' name='image' id='image' required/>
                     <label htmlFor='author'>Author:</label>
                     <input type='text' name='author' id='author'/>
                     <button className='create-board-btn' type='submit'>Create Board</button>
