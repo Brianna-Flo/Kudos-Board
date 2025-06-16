@@ -1,0 +1,10 @@
+.board-list {
+    display: flex;
+    gap: 5%;
+    margin: 10%;
+    flex-wrap: wrap;
+}
+
+.welcome {
+    text-align: center;
+}

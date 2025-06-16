@@ -29,13 +29,16 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <header className='homepage-header'>
+      <section id="banner">
         <h1>Kudos Board</h1>
+      </section>
+      <header className='homepage-header'>
         <div className='toolbar'>
           <SearchBar />
           <Categories />
           <button onClick={toggleModal}>Create New Board</button>
-          {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleCreateBoard} />}
+          {/* {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleCreateBoard} />} */}
+          {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={(newBoard) => {setBoards((prev) => [...prev, newBoard])}} />}
         </div>
         {/* <Toolbar onCreate/> */}
       </header>
