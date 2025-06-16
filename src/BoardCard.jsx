@@ -5,3 +5,5 @@ const BoardCard = ({cardInfo}) => {
         <div></div>
     )
 }
+
+export default BoardCard;
