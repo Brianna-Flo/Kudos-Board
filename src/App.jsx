@@ -1,18 +1,41 @@
 import "./App.css";
-import Toolbar from './Toolbar';
+// import Toolbar from './Toolbar';
+import SearchBar from "./SearchBar";
+import Categories from "./Categories";
+import CreateBoard from './CreateBoard'
 import BoardList from './BoardList';
 import Footer from './Footer';
+import {useState} from 'react';
 
 
 const App = () => {
+  // hold board cards in an array of board components
+  const [boards, setBoards] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = () => {
+      setModalOpen((prev) => !prev);
+  }
+
+  const handleCreateBoard = (newBoard) => {
+    setBoards((prev) => [...prev, newBoard]);
+    console.log(setBoards);
+  }
+
   return (
     <div className="app-container">
       <header className='homepage-header'>
         <h1>Kudos Board</h1>
-        <Toolbar />
+        <div className='toolbar'>
+          <SearchBar />
+          <Categories />
+          <button onClick={toggleModal}>Create New Board</button>
+          {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleCreateBoard} />}
+        </div>
+        {/* <Toolbar onCreate/> */}
       </header>
       <main>
-        <BoardList />
+        <BoardList boardList={boards} />
       </main>
       <footer></footer>
     </div>

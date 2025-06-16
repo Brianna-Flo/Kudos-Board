@@ -1,9 +1,10 @@
 import React from "react";
+import {useState} from 'react';
 
-const Board = () => {
+const Board = ({boardInfo}) => {
     return(
-        <div>
-
+        <div className="board-container">
+            <img/>
         </div>
     )
 }

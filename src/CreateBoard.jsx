@@ -1,18 +1,31 @@
 import React from "react";
 import './CreateBoard.css'
 
-const CreateBoard = ({onCloseModal}) => {
+const CreateBoard = ({onCloseModal, onCreate}) => {
 
+    const handleCreate = (event) => {
+        event.preventDefault();
+        // create an object containing information to use on the created board
+        const newBoard = {
+            title: event.target.title,
+            description: event.target.description.value,
+            category: event.target.category.value,
+            image: event.target.image.value,
+            author: event.target.author.value,
+        }
+        onCreate(newBoard);
+        onCloseModal();
+    }
 
     return (
         <section className='modal' id='create-board-modal'>
             <div className='modal-content'>
                 <button className='modal-close' onClick={onCloseModal}>&times;</button>
                 <h2>Create a New Board</h2>
-                <form className='create-board-form'>
-                    <label for='title'>Title:</label>
+                <form className='create-board-form' onSubmit={handleCreate}>
+                    <label htmlFor='title'>Title:</label>
                     <input type='text' name='title' id='title' required/>
-                    <label for='description'>Description:</label>
+                    <label htmlFor='description'>Description:</label>
                     <input type='text' name='description' id='description' required/>
                     <label>Category:</label>
                     <select id="category" name='category' required>
@@ -22,9 +35,9 @@ const CreateBoard = ({onCloseModal}) => {
                         <option id='thank-you' value='thank-you'>Thank You</option>
                         <option id="inspiration" value="inspiration">Inspiration</option>
                     </select>
-                    <label for='image'>Image:</label>
+                    <label htmlFor='image'>Image:</label>
                     <input type='file' name='image' id='image' required/>
-                    <label>Author:</label>
+                    <label htmlFor='author'>Author:</label>
                     <input type='text' name='author' id='author'/>
                     <button className='create-board-btn' type='submit'>Create Board</button>
                 </form>
