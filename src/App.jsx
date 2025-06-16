@@ -11,7 +11,6 @@ const App = () => {
         <Toolbar />
       </header>
       <main>
-        <h1> hi</h1>
         <BoardList />
       </main>
       <footer></footer>
