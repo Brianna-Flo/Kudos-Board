@@ -5,7 +5,7 @@ import CreateBoard from './CreateBoard'
 import BoardList from './BoardList';
 import Footer from './Footer';
 import {useState, useEffect} from 'react';
-import { categoryOptions, filterBoards } from "./utils/utils";
+import { categoryOptions, filterBoardsByCategory } from "./utils/utils";
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -14,40 +14,30 @@ const App = () => {
   // hold board cards in an array of board components
   const [boards, setBoards] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [searchedBoards, setSearchedBoards] = useState([]);
+  // const [searchedBoards, setSearchedBoards] = useState([]);
+  const [requestedBoards, setRequestedBoards] = useState([]);
   const [searchMode, setSearchMode] = useState(false);
   // error state if no results from search
   const [noSearchResults, setNoSearchResults] = useState(false);
-  const [filterCategory, setFilterCategory] = useState("All");
   const [noNavResults, setNoNavResults] = useState(false);
   const [navMode, setNavMode] = useState(false);
 
   useEffect(() => {
     // when search mode or searched boards changes indicates action in search bar, may set no results to true
-    setNoSearchResults(searchMode && searchedBoards.length === 0)
-  }, [searchMode, searchedBoards])
+    setNoSearchResults(searchMode && requestedBoards.length === 0)
+  }, [searchMode, requestedBoards])
  
   useEffect(() => {
     // when search mode or searched boards changes indicates action in search bar, may set no results to true
-    setNoNavResults(navMode && searchedBoards.length === 0)
-  }, [navMode, searchedBoards])
-
-  // when the category changes, filter the boards to only present 
-  // useEffect(() => {
-  //   console.log(category)
-  //   if (category !== "All") {
-  //     setSearchedBoards(filterBoards(boards, category));
-  //     // set search mode true so we only see the filtered boards
-  //     setSearchMode(true);
-  //   }
-  // }, [category])
+    setNoNavResults(navMode && requestedBoards.length === 0)
+  }, [navMode, requestedBoards])
 
   const toggleModal = () => {
       setModalOpen((prev) => !prev);
   }
 
   const handleSearch = (searchedList) => {
-    setSearchedBoards(searchedList);
+    setRequestedBoards(searchedList);
     setSearchMode(true);
   }
 
@@ -62,12 +52,11 @@ const App = () => {
   const handleCategoryChange = (event) => {
     // setFilterCategory(event.target.id);
     if (event.target.id !== "All") {
-      setSearchedBoards(filterBoards(boards, event.target.id));
+      setRequestedBoards(filterBoardsByCategory(boards, event.target.id));
         // set search mode true so we only see the filtered boards
       // setSearchMode(true);
       setNavMode(true);
-    } else {
-      // setSearchMode(false);
+    } else { // if "all category chosen, no longer in nav mode
       setNavMode(false);
     }
 }
@@ -96,7 +85,7 @@ const App = () => {
       <main>
         {
           // if in search mode or nav mode, present search boards, otherwise present list of boards
-          <BoardList boardList={(searchMode || navMode) ? searchedBoards : boards} searchMode={searchMode} noSearchResults={noSearchResults} navMode={navMode} noNavResults={noNavResults}/>
+          <BoardList boardList={(searchMode || navMode) ? requestedBoards : boards} searchMode={searchMode} noSearchResults={noSearchResults} navMode={navMode} noNavResults={noNavResults}/>
         }
       </main>
       <footer></footer>

@@ -1,5 +1,5 @@
 import React from "react";
-import { searchBoards, searchButtons } from "./utils/utils";
+import { findBoardsBySearchTerm, searchButtons } from "./utils/utils";
 import Buttons from './Buttons'
 
 const SearchBar = ({boardList, onSearch, toggleSearchMode}) => {
@@ -7,7 +7,7 @@ const SearchBar = ({boardList, onSearch, toggleSearchMode}) => {
   const handleSearch = (event) => {
     event.preventDefault();
     const searchTerm = event.target.elements.searchInput.value;
-    onSearch(searchBoards(boardList, searchTerm));
+    onSearch(findBoardsBySearchTerm(boardList, searchTerm));
   }
 
   return (
