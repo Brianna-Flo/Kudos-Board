@@ -1,6 +1,5 @@
 import "./App.css";
 import SearchBar from "./SearchBar";
-import CategoryButton from "./CategoryButton";
 import Buttons from "./Buttons"
 import CreateBoard from './CreateBoard'
 import BoardList from './BoardList';

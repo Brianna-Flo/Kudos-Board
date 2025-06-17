@@ -5,8 +5,6 @@ import './Board.css'
 import { boardButtons } from "./utils/utils";
 import Buttons from './Buttons'
 import { v4 as uuidv4 } from 'uuid';
-// import './CommonStyles.css'
-
 
 const Board = ({boardInfo}) => {
     const [openBoard, setOpenBoard] = useState(false);
