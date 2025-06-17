@@ -12,4 +12,20 @@ const searchBoards = (boards, searchTerm) => {
     return searchedBoards;
 } 
 
-export {categoryOptions, boardButtons, searchButtons, searchBoards }
+const filterBoards = (boards, reqCategory) => {
+    // console.log("in filter boards, boards: ", boards);
+    // if category is all, return all boards
+    if (!boards) {
+        return [];
+    }
+    if (reqCategory === categoryOptions[0]) { // category is all
+        return boards;
+    }
+    // console.log("board category", boards[0].category, "filter by: ", reqCategory)
+    const filteredBoards = boards.filter((currBoard) => {
+        return currBoard.category === reqCategory;
+    })
+    return filteredBoards;
+}
+
+export {categoryOptions, boardButtons, searchButtons, searchBoards, filterBoards }

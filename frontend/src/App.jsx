@@ -5,7 +5,7 @@ import CreateBoard from './CreateBoard'
 import BoardList from './BoardList';
 import Footer from './Footer';
 import {useState, useEffect} from 'react';
-import { categoryOptions } from "./utils/utils";
+import { categoryOptions, filterBoards } from "./utils/utils";
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -18,11 +18,22 @@ const App = () => {
   const [searchMode, setSearchMode] = useState(false);
   // error state if no results from search
   const [noResults, setNoResults] = useState(false);
+  const [filterCategory, setFilterCategory] = useState("All")
 
   useEffect(() => {
     // when search mode or searched boards changes indicates action in search bar, may set no results to true
     setNoResults(searchMode && searchedBoards.length === 0)
   }, [searchMode, searchedBoards])
+
+  // when the category changes, filter the boards to only present 
+  // useEffect(() => {
+  //   console.log(category)
+  //   if (category !== "All") {
+  //     setSearchedBoards(filterBoards(boards, category));
+  //     // set search mode true so we only see the filtered boards
+  //     setSearchMode(true);
+  //   }
+  // }, [category])
 
   const toggleModal = () => {
       setModalOpen((prev) => !prev);
@@ -41,6 +52,17 @@ const App = () => {
     setBoards((prev) => [...prev, newBoard])
   }
 
+  const handleCategoryChange = (event) => {
+    setFilterCategory(event.target.id);
+    if (event.target.id !== "All") {
+      setSearchedBoards(filterBoards(boards, event.target.id));
+        // set search mode true so we only see the filtered boards
+      setSearchMode(true);
+    } else {
+      setSearchMode(false);
+    }
+}
+
 
 
   return (
@@ -54,11 +76,11 @@ const App = () => {
           <div className="category-btns">
             {categoryOptions.map((category) => {
               // return (<CategoryButton key={uuidv4()} category={category} />)
-              return (<Buttons key={uuidv4()} buttonClass="category-btn" buttonId={category} buttonText={category} />)
+              return (<Buttons key={uuidv4()} buttonClass="category-btn" buttonId={category} buttonText={category} onClick={handleCategoryChange}/>)
             })}
           </div>
-          {/* <button onClick={toggleModal} className="buttons">Create New Board</button> */}
-          <Buttons buttonText="Create New Board" onClick={toggleModal} />
+          <button onClick={toggleModal} className="buttons">Create New Board</button>
+          {/* <Buttons buttonText="Create New Board" onClick={toggleModal} /> */}
           {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleNewBoard} />}
         </div>
       </header>
