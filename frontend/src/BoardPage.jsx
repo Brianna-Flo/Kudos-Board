@@ -3,6 +3,7 @@ import "./BoardPage.css";
 import BoardCard from "./BoardCard";
 import { useState } from 'react'
 import CreateCard from './CreateCard'
+import Buttons from './Buttons'
 
 const BoardPage = ({ onClosePage, boardInfo }) => {
     const [cardModalOpen, setCardModalOpen] = useState(false);
@@ -17,7 +18,8 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
         <section className="board-header">
             <img alt="kudos board logo" />
             <h1>Board Title</h1>
-            <button onClick={toggleCardModal}>Create a Card</button>
+            {/* <button onClick={toggleCardModal}>Create a Card</button> */}
+            <Buttons buttonText="Create a Card" clickAction={toggleCardModal}/>
             {cardModalOpen && <CreateCard onClose={toggleCardModal} />}
         </section>
         {/* {boardInfo.cards.map((card) => (

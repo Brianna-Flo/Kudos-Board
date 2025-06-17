@@ -38,14 +38,14 @@
     transform: scale(1.05);
 } */
 
-.delete-btn {
+#delete-btn {
     background-color: #6366F1;
 }
 
-.delete-btn:hover {
+#delete-btn:hover {
     background-color: #818CF8;
 }
 
-.view-btn:hover {
+#view-btn:hover {
     background-color: #E5E7EB;
 }

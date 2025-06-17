@@ -1,6 +1,6 @@
 import "./App.css";
 import SearchBar from "./SearchBar";
-import CategoryButton from "./CategoryButton";
+import Buttons from "./Buttons"
 import CreateBoard from './CreateBoard'
 import BoardList from './BoardList';
 import Footer from './Footer';
@@ -53,10 +53,12 @@ const App = () => {
           <SearchBar boardList={boards} onSearch={handleSearch} searchMode={toggleMode}/>
           <div className="category-btns">
             {categoryOptions.map((category) => {
-              return (<CategoryButton key={uuidv4()} category={category} />)
+              // return (<CategoryButton key={uuidv4()} category={category} />)
+              return (<Buttons key={uuidv4()} buttonClass="category-btn" buttonId={category} buttonText={category} />)
             })}
           </div>
-          <button onClick={toggleModal} className="buttons">Create New Board</button>
+          {/* <button onClick={toggleModal} className="buttons">Create New Board</button> */}
+          <Buttons buttonText="Create New Board" clickAction={toggleModal} />
           {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleNewBoard} />}
         </div>
       </header>

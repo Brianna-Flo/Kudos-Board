@@ -1,5 +1,6 @@
 import React from "react";
 import { searchBoards } from "./utils/utils";
+import Buttons from './Buttons'
 
 const SearchBar = ({boardList, onSearch, searchMode}) => {
 
@@ -20,6 +21,9 @@ const SearchBar = ({boardList, onSearch, searchMode}) => {
       <button className="clear-btn buttons" type="reset" onClick={searchMode}>
         Clear
       </button>
+      {/* {searchButtons.map((entry) => {
+        return <Buttons key={entry.id} buttonType={entry.type} buttonId={entry.id} buttonText={entry.text} clickAction={searchMode} />
+      })} */}
     </form>
   );
 };
