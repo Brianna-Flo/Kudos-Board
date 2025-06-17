@@ -1,5 +1,5 @@
 import React from 'react';
-import './CommonStyles.css'
+// import './CommonStyles.css'
 
 const CategoryButton = ({category}) => {
     return (
