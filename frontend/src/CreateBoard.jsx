@@ -32,9 +32,9 @@ const CreateBoard = ({onCloseModal, onCreate}) => {
                     <select id="category" name='category' required>
                         {/* TODO change to map to list of categories?? */}
                         <option value=''>Select a category</option>
-                        <option id='celebration' value='celebration'>Celebration</option>
-                        <option id='thank-you' value='thank-you'>Thank You</option>
-                        <option id="inspiration" value="inspiration">Inspiration</option>
+                        <option id='celebration' value='Celebration'>Celebration</option>
+                        <option id='thank-you' value='Thank You'>Thank You</option>
+                        <option id="inspiration" value="Inspiration">Inspiration</option>
                     </select>
                     <label htmlFor='image'>Image:</label>
                     <input type='text' name='image' id='image' required/>

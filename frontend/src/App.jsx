@@ -1,11 +1,10 @@
 import "./App.css";
-// import Toolbar from './Toolbar';
 import SearchBar from "./SearchBar";
 import CategoryButton from "./CategoryButton";
 import CreateBoard from './CreateBoard'
 import BoardList from './BoardList';
 import Footer from './Footer';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { categoryOptions } from "./utils/utils";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,10 +14,34 @@ const App = () => {
   // hold board cards in an array of board components
   const [boards, setBoards] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [searchedBoards, setSearchedBoards] = useState([]);
+  const [searchMode, setSearchMode] = useState(false);
+  // error state if no results from search
+  const [noResults, setNoResults] = useState(false);
+
+  useEffect(() => {
+    // when search mode or searched boards changes indicates action in search bar, may set no results to true
+    setNoResults(searchMode && searchedBoards.length === 0)
+  }, [searchMode, searchedBoards])
 
   const toggleModal = () => {
       setModalOpen((prev) => !prev);
   }
+
+  const handleSearch = (searchedList) => {
+    setSearchedBoards(searchedList);
+    setSearchMode(true);
+  }
+
+  const toggleMode = () => {
+    setSearchMode((prev) => !prev)
+  }
+
+  const handleNewBoard = (newBoard) => {
+    setBoards((prev) => [...prev, newBoard])
+  }
+
+
 
   return (
     <div className="app-container">
@@ -27,23 +50,21 @@ const App = () => {
       </section>
       <header className='homepage-header'>
         <div className='toolbar'>
-          <SearchBar />
+          <SearchBar boardList={boards} onSearch={handleSearch} searchMode={toggleMode}/>
           <div className="category-btns">
             {categoryOptions.map((category) => {
               return (<CategoryButton key={uuidv4()} category={category} />)
             })}
           </div>
           <button onClick={toggleModal} className="buttons">Create New Board</button>
-          {/* {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleCreateBoard} />} */}
-          {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={(newBoard) => {setBoards((prev) => [...prev, newBoard])}} />}
+          {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleNewBoard} />}
         </div>
-        {/* <Toolbar onCreate/> */}
       </header>
       <main>
-        <BoardList boardList={boards} />
-
-        {/* <BoardPage boardInfo={boards[0]} /> */}
-        {/* <CreateCard/> */}
+        {
+          // if in search mode, present search boards, otherwise present list of boards
+          <BoardList boardList={searchMode ? searchedBoards : boards} searchMode={searchMode} noResults={noResults}/>
+        }
       </main>
       <footer></footer>
     </div>

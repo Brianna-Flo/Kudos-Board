@@ -1,3 +1,10 @@
 const categoryOptions = ["All", "Recent", "Celebration", "Thank You", "Inspiration"]
 
-export {categoryOptions}
+const searchBoards = (boards, searchTerm) => {
+    const searchedBoards = boards.filter((currBoard) => {
+      return currBoard.title.toLowerCase().includes(searchTerm.toLowerCase());
+    })
+    return searchedBoards;
+} 
+
+export {categoryOptions, searchBoards }
