@@ -79,8 +79,8 @@ const App = () => {
               return (<Buttons key={uuidv4()} buttonClass="category-btn" buttonId={category} buttonText={category} onClick={handleCategoryChange}/>)
             })}
           </div>
-          <button onClick={toggleModal} className="buttons">Create New Board</button>
-          {/* <Buttons buttonText="Create New Board" onClick={toggleModal} /> */}
+          {/* <button onClick={toggleModal} className="buttons">Create New Board</button> */}
+          <Buttons buttonText="Create New Board" onClick={toggleModal} />
           {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleNewBoard} />}
         </div>
       </header>
