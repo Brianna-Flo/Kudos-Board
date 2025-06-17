@@ -2,6 +2,8 @@ const categoryOptions = ["All", "Recent", "Celebration", "Thank You", "Inspirati
 
 const boardButtons = [{id: "view-btn", text: "View Board"}, {id: "delete-btn", text: "Delete Board"}]
 
+// const cardButtons = [{id: "upvote-btn", text: {`Upvote: ${upvotes}`}}, {id: "delete-btn", text: "Delete"}]
+
 const searchBoards = (boards, searchTerm) => {
     const searchedBoards = boards.filter((currBoard) => {
       return currBoard.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -9,4 +11,4 @@ const searchBoards = (boards, searchTerm) => {
     return searchedBoards;
 } 
 
-export {categoryOptions, boardButtons, searchBoards }
+export {categoryOptions, boardButtons, cardButtons, searchBoards }

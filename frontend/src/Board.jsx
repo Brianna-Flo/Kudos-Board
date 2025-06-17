@@ -26,7 +26,7 @@ const Board = ({boardInfo}) => {
                         {/* <button className="view-btn buttons" onClick={toggleBoardPage}>View Board</button>
                         <button className="delete-btn buttons">Delete Board</button> */}
                         {boardButtons.map((entry) => {
-                            return <Buttons key={uuidv4()} type="" buttonId={entry.id} buttonText={entry.text} clickAction={entry.id === "view-btn" ? toggleBoardPage : {}}/>
+                            return <Buttons key={uuidv4()} buttonId={entry.id} buttonText={entry.text} clickAction={entry.id === "view-btn" ? toggleBoardPage : {}}/>
                         })}
                     </div>
                 </div>
