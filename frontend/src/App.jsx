@@ -63,7 +63,7 @@ const App = () => {
       <main>
         {
           // if in search mode, present search boards, otherwise present list of boards
-          searchMode ? <BoardList boardList={searchedBoards} searchMode={searchMode} noResults={noResults}/> : <BoardList boardList={boards} searchMode={searchMode} noResults={noResults}/>
+          <BoardList boardList={searchMode ? searchedBoards : boards} searchMode={searchMode} noResults={noResults}/>
         }
       </main>
       <footer></footer>
