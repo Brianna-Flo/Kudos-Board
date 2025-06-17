@@ -55,7 +55,7 @@ const App = () => {
           <div className="category-btns">
             {categoryOptions.map((category) => {
               // return (<CategoryButton key={uuidv4()} category={category} />)
-              return (<Buttons key={uuidv4()} type="category-btn" buttonId={category} buttonText={category} />)
+              return (<Buttons key={uuidv4()} buttonClass="category-btn" buttonId={category} buttonText={category} />)
             })}
           </div>
           {/* <button onClick={toggleModal} className="buttons">Create New Board</button> */}

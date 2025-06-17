@@ -1,10 +1,10 @@
 import './Buttons.css'
 
-const Buttons = ({type, buttonId, buttonText, clickAction}) => {
+const Buttons = ({buttonClass, buttonType, buttonId, buttonText, clickAction}) => {
     console.log("in buttons creating button for ", buttonText);
     return (
         // example: <button id={category} className="buttons category-btn ">
-        <button id={buttonId} className={`buttons ${type}`} onClick={clickAction}>
+        <button id={buttonId} className={`buttons ${buttonClass}`} onClick={clickAction} type={buttonType}>
             {buttonText}
         </button>
     )
