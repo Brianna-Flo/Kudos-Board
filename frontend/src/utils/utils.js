@@ -5,6 +5,12 @@ const boardButtons = [{id: "view-btn", text: "View Board"}, {id: "delete-btn", t
 const searchButtons = [{id: "search-btn", type: "submit", text: "Search"}, {id: "clear-btn", type: "reset", text: "Clear"}]
 // const cardButtons = [{id: "upvote-btn", text: {`Upvote: ${upvotes}`}}, {id: "delete-btn", text: "Delete"}]
 
+const sampleBoards = [{title: "hello", description: "descriptionsss", category: "Thank You", image: "jazz.jpg", author: "", cards: []},
+                    {title: "exciting", description: "descriptionsss", category: "Thank You", image: "jazz.jpg", author: "", cards: []},
+                    {title: "wooo", description: "descriptionsss", category: "Thank You", image: "jazz.jpg", author: "", cards: []},
+                    {title: ":P", description: "descriptionsss", category: "Thank You", image: "jazz.jpg", author: "", cards: []}]
+
+
 const findBoardsBySearchTerm = (boards, searchTerm) => {
     const searchedBoards = boards.filter((currBoard) => {
       return currBoard.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -28,4 +34,4 @@ const filterBoardsByCategory = (boards, requestedCategory) => {
     return filteredBoards;
 }
 
-export {categoryOptions, boardButtons, searchButtons, findBoardsBySearchTerm, filterBoardsByCategory }
+export {categoryOptions, boardButtons, searchButtons, sampleBoards, findBoardsBySearchTerm, filterBoardsByCategory }
