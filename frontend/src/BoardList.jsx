@@ -3,12 +3,12 @@ import Board from "./Board";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const BoardList = ({ boardList, searchMode, noResults }) => {
+const BoardList = ({ boardList, searchMode, noSearchResults, navMode, noNavResults }) => {
 
   return (
     <div>
       {/* if there are no boards and not in search mode display welcome message */}
-      {boardList && boardList.length === 0 && !searchMode ? (
+      {boardList && boardList.length === 0 && (!searchMode && !navMode) ? (
         <section className="welcome">
           <h2>Welcome to the Kudos Board!</h2>
           <p>Click create a new board to get started</p>
@@ -21,7 +21,8 @@ const BoardList = ({ boardList, searchMode, noResults }) => {
           })}
         </div>
       )}
-      {noResults && <p>No results, try another search</p>}
+      {noSearchResults && <p>No results, try another search</p>}
+      {noNavResults && <p>No boards in this category</p>}
     </div>
   );
 };

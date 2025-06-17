@@ -17,13 +17,20 @@ const App = () => {
   const [searchedBoards, setSearchedBoards] = useState([]);
   const [searchMode, setSearchMode] = useState(false);
   // error state if no results from search
-  const [noResults, setNoResults] = useState(false);
-  const [filterCategory, setFilterCategory] = useState("All")
+  const [noSearchResults, setNoSearchResults] = useState(false);
+  const [filterCategory, setFilterCategory] = useState("All");
+  const [noNavResults, setNoNavResults] = useState(false);
+  const [navMode, setNavMode] = useState(false);
 
   useEffect(() => {
     // when search mode or searched boards changes indicates action in search bar, may set no results to true
-    setNoResults(searchMode && searchedBoards.length === 0)
+    setNoSearchResults(searchMode && searchedBoards.length === 0)
   }, [searchMode, searchedBoards])
+ 
+  useEffect(() => {
+    // when search mode or searched boards changes indicates action in search bar, may set no results to true
+    setNoNavResults(navMode && searchedBoards.length === 0)
+  }, [navMode, searchedBoards])
 
   // when the category changes, filter the boards to only present 
   // useEffect(() => {
@@ -53,13 +60,15 @@ const App = () => {
   }
 
   const handleCategoryChange = (event) => {
-    setFilterCategory(event.target.id);
+    // setFilterCategory(event.target.id);
     if (event.target.id !== "All") {
       setSearchedBoards(filterBoards(boards, event.target.id));
         // set search mode true so we only see the filtered boards
-      setSearchMode(true);
+      // setSearchMode(true);
+      setNavMode(true);
     } else {
-      setSearchMode(false);
+      // setSearchMode(false);
+      setNavMode(false);
     }
 }
 
@@ -86,8 +95,8 @@ const App = () => {
       </header>
       <main>
         {
-          // if in search mode, present search boards, otherwise present list of boards
-          <BoardList boardList={searchMode ? searchedBoards : boards} searchMode={searchMode} noResults={noResults}/>
+          // if in search mode or nav mode, present search boards, otherwise present list of boards
+          <BoardList boardList={(searchMode || navMode) ? searchedBoards : boards} searchMode={searchMode} noSearchResults={noSearchResults} navMode={navMode} noNavResults={noNavResults}/>
         }
       </main>
       <footer></footer>
