@@ -25,7 +25,7 @@ const SearchBar = ({boardList, onSearch, toggleSearchMode}) => {
       {/* <Buttons buttonType={searchButtons[0].type} buttonId={searchButtons[0].id} buttonText={searchButtons[0].text} onClick={toggleSearchMode}/>
       <Buttons buttonType={searchButtons[1].type} buttonId={searchButtons[1].id} buttonText={searchButtons[1].text} onClick={toggleSearchMode}/> */}
       {searchButtons.map((entry) => {
-        return <Buttons key={entry.id} buttonType={entry.type} buttonId={entry.id} buttonText={entry.text} clickAction={toggleSearchMode} />
+        return <Buttons key={entry.id} buttonType={entry.type} buttonId={entry.id} buttonText={entry.text} onClick={toggleSearchMode} />
       })}
     </form>
   );

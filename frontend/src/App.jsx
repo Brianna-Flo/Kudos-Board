@@ -42,6 +42,7 @@ const App = () => {
   }
 
   const toggleMode = () => {
+    console.log("search mode now, ", searchMode);
     setSearchMode((prev) => !prev)
   }
 
