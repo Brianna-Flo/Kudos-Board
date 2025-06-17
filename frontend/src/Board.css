@@ -28,16 +28,6 @@
     width: 100%;
 }
 
-/* .buttons {
-    padding: 5px 15px;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-.buttons:hover {
-    transform: scale(1.05);
-} */
-
 #delete-btn {
     background-color: #6366F1;
 }
