@@ -50,7 +50,7 @@ const App = () => {
       </section>
       <header className='homepage-header'>
         <div className='toolbar'>
-          <SearchBar boardList={boards} onSearch={handleSearch} searchMode={toggleMode}/>
+          <SearchBar boardList={boards} onSearch={handleSearch} toggleSearchMode={toggleMode}/>
           <div className="category-btns">
             {categoryOptions.map((category) => {
               // return (<CategoryButton key={uuidv4()} category={category} />)
@@ -58,7 +58,7 @@ const App = () => {
             })}
           </div>
           {/* <button onClick={toggleModal} className="buttons">Create New Board</button> */}
-          <Buttons buttonText="Create New Board" clickAction={toggleModal} />
+          <Buttons buttonText="Create New Board" onClick={toggleModal} />
           {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleNewBoard} />}
         </div>
       </header>

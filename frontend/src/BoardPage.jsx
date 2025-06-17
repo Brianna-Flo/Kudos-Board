@@ -19,7 +19,7 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
             <img alt="kudos board logo" />
             <h1>Board Title</h1>
             {/* <button onClick={toggleCardModal}>Create a Card</button> */}
-            <Buttons buttonText="Create a Card" clickAction={toggleCardModal}/>
+            <Buttons buttonText="Create a Card" onClick={toggleCardModal}/>
             {cardModalOpen && <CreateCard onClose={toggleCardModal} />}
         </section>
         {/* {boardInfo.cards.map((card) => (
