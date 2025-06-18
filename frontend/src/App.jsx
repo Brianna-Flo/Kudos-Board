@@ -9,7 +9,7 @@ import { categoryOptions, filterBoardsByCategory, sampleBoards } from "./utils/u
 import { v4 as uuidv4 } from 'uuid';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
-const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:9009';
+const baseUrl = import.meta.env.VITE_API_URL;
 // fetch(`${baseUrl}`);
 
 const App = () => {
@@ -27,6 +27,7 @@ const App = () => {
   const fetchBoardData = async () => {
     try {
       const response = await fetch(`${baseUrl}/boards`);
+      // console.log(`${baseUrl}/boards`)
       if (!response.ok) {
         throw new Error("Failed to fetch board data");
       }

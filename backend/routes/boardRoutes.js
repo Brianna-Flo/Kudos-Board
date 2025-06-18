@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const cors = require('cors')
+// const cors = require('cors')
 
-const corsParams = {
-    origin: 'http://localhost:3000',
-    methods: 'GET,PUT,POST,DELETE',
-}
-router.use(cors(corsParams))
+// const corsParams = {
+//     origin: 'http://localhost:3000',
+//     methods: 'GET,PUT,POST,DELETE',
+// }
+// router.use(cors(corsParams))
 
 
 const { PrismaClient } = require('@prisma/client')
