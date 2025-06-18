@@ -1,26 +1,16 @@
-// use express
 const express = require("express");
-// create a router
 const router = express.Router();
 
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
-// cards are associated with a board, so use cards for each board
 const cardRoutes = require('./cardRoutes')
-// router.use(express.json());
-// // app will display pets only if localhost:3000/pets which will be the root directory
 router.use('/', cardRoutes)
 
 
-// get all boards from the database using routes
-// since were interacting with a database, use async/await
 router.get('/', async (req, res) => {
     try {
-        const boards = await prisma.Board.findMany(
-            // {include: {cards: true}}
-        );
-        // shows the relation (cards array)
+        const boards = await prisma.Board.findMany();
         res.json(boards);
     } catch (error) {
         res.status(500).send('Server Error');
@@ -113,7 +103,7 @@ router.delete('/:boardId', async (req, res) => {
         if (!checkBoardExists) {
             return res.status(404).send("Board not found")
         }
-        
+
         const deletedBoard = await prisma.board.delete({
             where: {id: boardId}
         })

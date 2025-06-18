@@ -1,6 +1,4 @@
-// use express
 const express = require("express");
-// create a router
 const router = express.Router();
 
 const { PrismaClient } = require('@prisma/client')
@@ -46,7 +44,6 @@ router.post('/:boardId/cards/', async (req, res) => {
     const {message, gif, upvotes} = req.body;
 
     try {
-        // create a new board object
         const newCard = await prisma.Card.create({
             data: {
                 message,
@@ -62,7 +59,6 @@ router.post('/:boardId/cards/', async (req, res) => {
     
 })
 
-// update a board element
 router.put('/:boardId/cards/:cardId', async (req, res) => {
     if (!req.body.message) {
         return res.status(400).send("message is required")
