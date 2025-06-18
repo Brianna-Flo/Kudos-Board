@@ -9,10 +9,21 @@ import { v4 as uuidv4 } from 'uuid';
 
 const BoardPage = ({ onClosePage, boardInfo }) => {
     const [cardModalOpen, setCardModalOpen] = useState(false);
+    const [boardCards, setBoardCards] = useState(boardInfo.cards)
 
     const toggleCardModal = () => {
         setCardModalOpen((prev) => !prev)
     }
+
+    const handleDeleteCard = (id) => {
+        console.log("in handle delete")
+        setBoardCards((prev) => {
+            return prev.filter((curr) => {
+                return curr.id !== id
+            }
+        )});
+    }
+    console.log(boardCards)
 
     return (
         <div className="board-page">
@@ -22,11 +33,14 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
             <h1>Board Title</h1>
             {/* <button onClick={toggleCardModal}>Create a Card</button> */}
             <Buttons buttonText="Create a Card" onClick={toggleCardModal}/>
-            {cardModalOpen && <CreateCard onClose={toggleCardModal} />}
+            {cardModalOpen && <CreateCard onClose={toggleCardModal}/>}
         </section>
         <section className="cards-container">
-            {boardInfo.cards.map((card) => (
-                <BoardCard key={uuidv4()} cardInfo={card} />
+            {/* {boardInfo.cards.map((card) => (
+                <BoardCard key={uuidv4()} cardInfo={card}  onDelete={handleDeleteCard}/>
+            ))} */}
+            {boardCards.map((card) => (
+                <BoardCard key={uuidv4()} cardInfo={card}  onDelete={handleDeleteCard}/>
             ))}
         </section>
         </div>
