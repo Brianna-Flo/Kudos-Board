@@ -9,21 +9,34 @@ const prisma = new PrismaClient()
 // get all cards for a given board
 router.get('/:boardId/cards', async (req, res) => {
     const boardId = parseInt(req.params.boardId);
-    const cards = await prisma.card.findMany({
-        where: {boardId: boardId}, // returns all cards whos boardId is boardId
-    })
-    res.json(cards);
+    try {
+        const cards = await prisma.card.findMany({
+            where: {boardId: boardId}, // returns all cards whos boardId is boardId
+        })
+        res.json(cards);
+    } catch (error) {
+        res.status(500).send('Server Error');
+    }
 })
 
 router.get('/:boardId/cards/:cardId', async (req, res) => {
     const boardId = parseInt(req.params.boardId);
     const cardId = parseInt(req.params.cardId)
-    const card = await prisma.Card.findUnique({
-        where: {id: cardId,
-            boardId: boardId
+    try {
+        const card = await prisma.Card.findUnique({
+            where: {id: cardId,
+                boardId: boardId
+            }
+        })
+        if (card) {
+            res.json(card);
+        } else {
+            res.status(404).send(`Card not found in board ${boardId}`)
         }
-    })
-    res.json(card);
+    } catch (error) {
+        res.status(500).send('An error occurred while fetching the card')
+    }
+    
 })
 
 // create a card that is mapped to a board
@@ -33,16 +46,22 @@ router.post('/:boardId/cards/', async (req, res) => {
     }
     const boardId = parseInt(req.params.boardId)
     const {message, gif, upvotes} = req.body;
-    // create a new board object
-    const newCard = await prisma.Card.create({
-        data: {
-            message,
-            gif,
-            upvotes,
-            board: {connect: {id: boardId}}
-        }
-    })
-    res.json(newCard)
+
+    try {
+        // create a new board object
+        const newCard = await prisma.Card.create({
+            data: {
+                message,
+                gif,
+                upvotes,
+                board: {connect: {id: boardId}}
+            }
+        })
+        res.json(newCard)
+    } catch (error) {
+        res.status(500).send('An error occurred while creating the card')
+    }
+    
 })
 
 // update a board element
@@ -53,26 +72,55 @@ router.put('/:boardId/cards/:cardId', async (req, res) => {
     const boardId = parseInt(req.params.boardId)
     const cardId = parseInt(req.params.cardId)
     const {message, gif, upvotes} = req.body;
-    const updatedCard = await prisma.Card.update({
-        where: {id: cardId},
-        data: {
-            message,
-            gif,
-            upvotes,
-            board: {connect :{id: boardId}}
+
+    try {
+        const checkCardInBoard = await prisma.Card.findUnique({
+            where: {id: cardId,
+                boardId: boardId
+            }
+        })
+        if (!checkCardInBoard) {
+            return res.status(404).send(`Card not found in board ${boardId}`)
         }
-    })
-    res.json(updatedCard)
+
+        const updatedCard = await prisma.Card.update({
+           where: {id: cardId},
+            data: {
+                message,
+                gif,
+                upvotes,
+                board: {connect :{id: boardId}}
+            }
+        })
+        res.json(updatedCard)
+    } catch (error) {
+        res.status(500).send("An error occurred while updating the card")
+    }
+    
 })
 
 router.delete('/:boardId/cards/:cardId', async (req, res) => {
     const boardId = parseInt(req.params.boardId)
     const cardId = parseInt(req.params.cardId)
-    const deletedCard = await prisma.Card.delete({
-        where: {boardId: boardId,
-            id: cardId}
-    })
-    res.json(deletedCard);
+    try {
+        const checkCardInBoard = await prisma.Card.findUnique({
+            where: {id: cardId,
+                boardId: boardId
+            }
+        })
+        if (!checkCardInBoard) {
+            return res.status(404).send(`Card not found in board ${boardId}`)
+        }
+
+        const deletedCard = await prisma.Card.delete({
+            where: {boardId: boardId,
+                id: cardId}
+        })
+        res.json(deletedCard);
+    } catch (error) {
+        res.status(500).send("An error occurred while deleting the card")
+    }
+    
 })
 
 module.exports = router;
