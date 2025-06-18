@@ -27,9 +27,10 @@ model Board {
 
 model Card {
   id Int @id @default(autoincrement())
-  message String
-  gif String
-  upvotes Int
+  cardTitle String
+  cardDescription String
+  gifURL String
+  cardUpvotes Int
   boardId Int
   board Board @relation(fields: [boardId], references: [id])
 }

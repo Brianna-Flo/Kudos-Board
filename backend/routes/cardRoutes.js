@@ -37,18 +37,18 @@ router.get('/:boardId/cards/:cardId', async (req, res) => {
 
 // create a card that is mapped to a board
 router.post('/:boardId/cards/', async (req, res) => {
-    if (!req.body.message) {
+    if (!req.body.cardDescription) {
         return res.status(400).send("message is required")
     }
     const boardId = parseInt(req.params.boardId)
-    const {message, gif, upvotes} = req.body;
+    const {cardDescription, gifURL, cardUpvotes,} = req.body;
 
     try {
         const newCard = await prisma.Card.create({
             data: {
-                message,
-                gif,
-                upvotes,
+                cardDescription,
+                gifURL,
+                cardUpvotes,
                 board: {connect: {id: boardId}}
             }
         })
@@ -65,7 +65,7 @@ router.put('/:boardId/cards/:cardId', async (req, res) => {
     }
     const boardId = parseInt(req.params.boardId)
     const cardId = parseInt(req.params.cardId)
-    const {message, gif, upvotes} = req.body;
+    const {cardDescription, gifURL, cardUpvotes,} = req.body;
 
     try {
         const inBoard = await checkCardInBoard(cardId, boardId);
@@ -76,10 +76,10 @@ router.put('/:boardId/cards/:cardId', async (req, res) => {
         const updatedCard = await prisma.Card.update({
            where: {id: cardId},
             data: {
-                message,
-                gif,
-                upvotes,
-                board: {connect :{id: boardId}}
+                cardDescription,
+                gifURL,
+                cardUpvotes,
+                board: {connect: {id: boardId}}
             }
         })
         res.json(updatedCard)

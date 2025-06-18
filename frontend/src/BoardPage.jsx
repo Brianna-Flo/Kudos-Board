@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 const BoardPage = ({ onClosePage, boardInfo }) => {
     const [cardModalOpen, setCardModalOpen] = useState(false);
     const [boardCards, setBoardCards] = useState(boardInfo.cards)
-
+    
     const toggleCardModal = () => {
         setCardModalOpen((prev) => !prev)
     }
@@ -27,12 +27,14 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
         setBoardCards((prev) => [...prev, ...newCard])
     }
 
+    
+
     return (
         <div className="board-page">
         <button className="back-btn" onClick={onClosePage}>&lt;</button>
         <section className="board-header">
             <img className="logo" src="./kudoboard_logo.png" alt="kudos board logo" />
-            <h1>Board Title</h1>
+            <h1>{boardInfo.title}</h1>
             {/* <button onClick={toggleCardModal}>Create a Card</button> */}
             <Buttons buttonText="Create a Card" onClick={toggleCardModal}/>
             {cardModalOpen && <CreateCard onClose={toggleCardModal} onCreateCard={handleNewCard} />}
