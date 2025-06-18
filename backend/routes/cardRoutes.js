@@ -6,6 +6,8 @@ const router = express.Router();
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
+const {checkCardInBoard} = require('../utils/utils')
+
 // get all cards for a given board
 router.get('/:boardId/cards', async (req, res) => {
     const boardId = parseInt(req.params.boardId);
@@ -23,15 +25,11 @@ router.get('/:boardId/cards/:cardId', async (req, res) => {
     const boardId = parseInt(req.params.boardId);
     const cardId = parseInt(req.params.cardId)
     try {
-        const card = await prisma.Card.findUnique({
-            where: {id: cardId,
-                boardId: boardId
-            }
-        })
+        const card = await checkCardInBoard(cardId, boardId)
         if (card) {
             res.json(card);
         } else {
-            res.status(404).send(`Card not found in board ${boardId}`)
+            res.status(404).send(`Card ${cardId} not found in board ${boardId}`)
         }
     } catch (error) {
         res.status(500).send('An error occurred while fetching the card')
@@ -74,13 +72,9 @@ router.put('/:boardId/cards/:cardId', async (req, res) => {
     const {message, gif, upvotes} = req.body;
 
     try {
-        const checkCardInBoard = await prisma.Card.findUnique({
-            where: {id: cardId,
-                boardId: boardId
-            }
-        })
-        if (!checkCardInBoard) {
-            return res.status(404).send(`Card not found in board ${boardId}`)
+        const inBoard = await checkCardInBoard(cardId, boardId);
+        if (!inBoard) {
+            return res.status(404).send(`Card ${cardId} not found in board ${boardId}`)
         }
 
         const updatedCard = await prisma.Card.update({
@@ -103,13 +97,9 @@ router.delete('/:boardId/cards/:cardId', async (req, res) => {
     const boardId = parseInt(req.params.boardId)
     const cardId = parseInt(req.params.cardId)
     try {
-        const checkCardInBoard = await prisma.Card.findUnique({
-            where: {id: cardId,
-                boardId: boardId
-            }
-        })
-        if (!checkCardInBoard) {
-            return res.status(404).send(`Card not found in board ${boardId}`)
+        const inBoard = await checkCardInBoard(cardId, boardId);
+        if (!inBoard) {
+            return res.status(404).send(`Card ${cardId} not found in board ${boardId}`)
         }
 
         const deletedCard = await prisma.Card.delete({
