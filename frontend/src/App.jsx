@@ -5,7 +5,7 @@ import CreateBoard from './CreateBoard'
 import BoardList from './BoardList';
 import Footer from './Footer';
 import {useState, useEffect} from 'react';
-import { categoryOptions, filterBoardsByCategory } from "./utils/utils";
+import { categoryOptions, filterBoardsByCategory, sampleBoards } from "./utils/utils";
 import { v4 as uuidv4 } from 'uuid';
 
 
