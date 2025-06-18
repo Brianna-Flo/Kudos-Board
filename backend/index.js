@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const PORT = 3000;
 const cors = require('cors')
-app.use(cors({origin: "http://localhost:5173"}))
+app.use(cors())
 app.use(express.json());
 // import the board routes file
 const routes = require('./routes/boardRoutes')

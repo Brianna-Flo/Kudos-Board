@@ -19,7 +19,9 @@ router.use('/', cardRoutes)
 
 router.get('/', async (req, res) => {
     try {
-        const boards = await prisma.Board.findMany();
+        const boards = await prisma.Board.findMany({
+            include: {cards: true}
+        });
         res.json(boards);
     } catch (error) {
         res.status(500).send('Server Error');
