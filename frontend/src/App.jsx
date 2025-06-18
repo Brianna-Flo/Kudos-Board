@@ -26,7 +26,7 @@ const App = () => {
 
   const fetchBoardData = async () => {
     try {
-      const response = await fetch(`${baseUrl}/boards/`);
+      const response = await fetch(`${baseUrl}/boards`);
       if (!response.ok) {
         throw new Error("Failed to fetch board data");
       }
