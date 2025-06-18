@@ -38,6 +38,19 @@ const App = () => {
     }
   }
 
+  const handleDeleteBoard = async (boardId) => {
+    const response = await fetch(`${baseUrl}/boards/${boardId}`, {
+      method: "DELETE"
+    })
+    if (!response.ok) {
+      throw new Error("Failed to delete board")
+    }
+    const data = await response.json();
+    setBoards((prev) => {
+      return prev.filter((board) => {return board.id !== data.id})
+    })
+  }
+
   // on load
   useEffect(() => {
     fetchBoardData();
@@ -96,7 +109,6 @@ const App = () => {
               return (<Buttons key={uuidv4()} buttonClass="category-btn" buttonId={category} buttonText={category} onClick={handleCategoryChange}/>)
             })}
           </div>
-          {/* <button onClick={toggleModal} className="buttons">Create New Board</button> */}
           <Buttons buttonText="Create New Board" onClick={toggleModal} />
           {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleNewBoard} />}
         </div>
@@ -104,7 +116,7 @@ const App = () => {
       <main>
         {
           // if in search mode or nav mode, present search boards, otherwise present list of boards
-          <BoardList boardList={(searchMode || navMode) ? requestedBoards : boards} searchMode={searchMode} noSearchResults={noSearchResults} navMode={navMode} noNavResults={noNavResults}/>
+          <BoardList boardList={(searchMode || navMode) ? requestedBoards : boards} searchMode={searchMode} noSearchResults={noSearchResults} navMode={navMode} noNavResults={noNavResults} onDelete={handleDeleteBoard} />
         }
       </main>
       <footer></footer>

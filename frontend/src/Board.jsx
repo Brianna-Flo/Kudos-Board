@@ -6,12 +6,14 @@ import { boardButtons } from "./utils/utils";
 import Buttons from './Buttons'
 import { v4 as uuidv4 } from 'uuid';
 
-const Board = ({boardInfo}) => {
+const Board = ({boardInfo, onDelete}) => {
     const [openBoard, setOpenBoard] = useState(false);
     
     const toggleBoardPage = () => {
         setOpenBoard((prev) => !prev);
     }
+
+
     return(
         <div>
             <div className="board-container">
@@ -23,7 +25,9 @@ const Board = ({boardInfo}) => {
                         {/* <button className="view-btn buttons" onClick={toggleBoardPage}>View Board</button>
                         <button className="delete-btn buttons">Delete Board</button> */}
                         {boardButtons.map((entry) => {
-                            return <Buttons key={uuidv4()} buttonId={entry.id} buttonText={entry.text} onClick={entry.id === "view-btn" ? toggleBoardPage : {}}/>
+                            return <Buttons key={uuidv4()} buttonId={entry.id} buttonText={entry.text} onClick={entry.id === "view-btn" ? toggleBoardPage : (() => {
+                                onDelete(boardInfo.id)
+                            })}/>
                         })}
                     </div>
                 </div>

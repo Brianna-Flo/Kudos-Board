@@ -1,9 +1,11 @@
 import "./BoardList.css";
 import Board from "./Board";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const BoardList = ({ boardList, searchMode, noSearchResults, navMode, noNavResults }) => {
+const baseUrl = import.meta.env.VITE_API_URL;
+
+const BoardList = ({ boardList, searchMode, noSearchResults, navMode, noNavResults, onDelete}) => {
 
   return (
     <div>
@@ -17,7 +19,7 @@ const BoardList = ({ boardList, searchMode, noSearchResults, navMode, noNavResul
         // otherwise display board components
         <div className="board-list">
           {boardList && boardList.map((board) => {
-            return <Board key={uuidv4()} boardInfo={board} />;
+            return <Board key={uuidv4()} boardInfo={board} onDelete={onDelete}/>;
           })}
         </div>
       )}
