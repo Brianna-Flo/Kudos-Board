@@ -37,8 +37,8 @@ router.get('/:boardId/cards/:cardId', async (req, res) => {
 
 // create a card that is mapped to a board
 router.post('/:boardId/cards/', async (req, res) => {
-    if (!req.body.cardDescription) {
-        return res.status(400).send("message is required")
+    if (!req.body.cardTitle || !req.body.cardDescription) {
+        return res.status(400).send("title and description is required")
     }
     const boardId = parseInt(req.params.boardId)
     const {cardDescription, gifURL, cardUpvotes,} = req.body;
@@ -60,8 +60,8 @@ router.post('/:boardId/cards/', async (req, res) => {
 })
 
 router.put('/:boardId/cards/:cardId', async (req, res) => {
-    if (!req.body.message) {
-        return res.status(400).send("message is required")
+    if (!req.body.cardTitle || !req.body.cardDescription) {
+        return res.status(400).send("title and description is required")
     }
     const boardId = parseInt(req.params.boardId)
     const cardId = parseInt(req.params.cardId)
