@@ -5,7 +5,6 @@ const CreateCard = ({onClose, onCreateCard}) => {
     
     const handleCreateCard = (event) => {
         event.preventDefault();
-
         const newCard = {
             cardTitle: event.target.cardtitle.value,
             cardDescription: event.target.cardDescription.value,

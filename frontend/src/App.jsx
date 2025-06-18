@@ -8,7 +8,7 @@ import {useState, useEffect} from 'react';
 import { categoryOptions, filterBoardsByCategory, sampleBoards } from "./utils/utils";
 import { v4 as uuidv4 } from 'uuid';
 
-
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const App = () => {
   // hold board cards in an array of board components

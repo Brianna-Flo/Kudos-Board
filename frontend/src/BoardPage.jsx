@@ -16,14 +16,16 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
     }
 
     const handleDeleteCard = (id) => {
-        console.log("in handle delete")
         setBoardCards((prev) => {
             return prev.filter((curr) => {
                 return curr.id !== id
             }
         )});
     }
-    console.log(boardCards)
+    
+    const handleNewCard = (newCard) => {
+        setBoardCards((prev) => [...prev, ...newCard])
+    }
 
     return (
         <div className="board-page">
@@ -33,7 +35,7 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
             <h1>Board Title</h1>
             {/* <button onClick={toggleCardModal}>Create a Card</button> */}
             <Buttons buttonText="Create a Card" onClick={toggleCardModal}/>
-            {cardModalOpen && <CreateCard onClose={toggleCardModal}/>}
+            {cardModalOpen && <CreateCard onClose={toggleCardModal} onCreateCard={handleNewCard} />}
         </section>
         <section className="cards-container">
             {/* {boardInfo.cards.map((card) => (
