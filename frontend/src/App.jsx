@@ -24,6 +24,24 @@ const App = () => {
   const [noNavResults, setNoNavResults] = useState(false);
   const [navMode, setNavMode] = useState(false);
 
+  const fetchBoardData = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/boards/`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch board data");
+      }
+      const data = await response.json();
+      setBoards(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // on load
+  useEffect(() => {
+    fetchBoardData();
+  }, [])
+
   useEffect(() => {
     // when search mode or searched boards changes indicates action in search bar, may set no results to true
     setNoSearchResults(searchMode && requestedBoards.length === 0)
