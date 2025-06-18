@@ -5,7 +5,7 @@ import CreateBoard from './CreateBoard'
 import BoardList from './BoardList';
 import Footer from './Footer';
 import {useState, useEffect} from 'react';
-import { categoryOptions, filterBoardsByCategory, sampleBoards } from "./utils/utils";
+import { categoryOptions, filterBoardsByCategory } from "./utils/utils";
 import { v4 as uuidv4 } from 'uuid';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -14,7 +14,7 @@ const baseUrl = import.meta.env.VITE_API_URL;
 
 const App = () => {
   // hold board cards in an array of board components
-  const [boards, setBoards] = useState(sampleBoards);
+  const [boards, setBoards] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   // requested boards holds results of a search or category filter
   const [requestedBoards, setRequestedBoards] = useState([]);
