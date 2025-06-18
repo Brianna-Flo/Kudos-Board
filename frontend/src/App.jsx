@@ -8,11 +8,13 @@ import {useState, useEffect} from 'react';
 import { categoryOptions, filterBoardsByCategory, sampleBoards } from "./utils/utils";
 import { v4 as uuidv4 } from 'uuid';
 
-
+const API_KEY = import.meta.env.VITE_API_KEY;
+const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:9009';
+// fetch(`${baseUrl}`);
 
 const App = () => {
   // hold board cards in an array of board components
-  const [boards, setBoards] = useState([]);
+  const [boards, setBoards] = useState(sampleBoards);
   const [modalOpen, setModalOpen] = useState(false);
   // requested boards holds results of a search or category filter
   const [requestedBoards, setRequestedBoards] = useState([]);
@@ -42,7 +44,6 @@ const App = () => {
   }
 
   const toggleMode = () => {
-    console.log("search mode now, ", searchMode);
     setSearchMode((prev) => !prev)
   }
 

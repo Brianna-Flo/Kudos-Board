@@ -12,7 +12,6 @@ const Board = ({boardInfo}) => {
     const toggleBoardPage = () => {
         setOpenBoard((prev) => !prev);
     }
-
     return(
         <div>
             <div className="board-container">
