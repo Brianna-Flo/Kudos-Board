@@ -7,7 +7,7 @@ const routes = require('./routes/boardRoutes')
 
 app.use(express.json());
 // app will display pets only if localhost:3000/pets which will be the root directory
-app.use('/board', routes)
+app.use('/boards', routes)
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`)
