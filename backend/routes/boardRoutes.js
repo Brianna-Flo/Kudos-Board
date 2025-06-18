@@ -16,14 +16,15 @@ const prisma = new PrismaClient()
 // get all boards from the database using routes
 // since were interacting with a database, use async/await
 router.get('/', async (req, res) => {
-    const kudosboards = await prisma.kudosboards.findMany()
-    res.json(kudosboards)
+    const boards = await prisma.Board.findMany();
+    console.log(boards);
+    res.json(boards);
 })
 
 // get board by id
 router.get('/:boardId', async (req, res) => {
     const boardId = parseInt(req.params.boardId)
-    const board = await prisma.kudosboards.findUnique({
+    const board = await prisma.Board.findUnique({
         where: {id: boardId}
     })
     res.json(board);
@@ -37,49 +38,52 @@ router.get('/:boardId', async (req, res) => {
 
 // post request, listens for create requests
 router.post('/', async (req, res) => {
+    if (!req.body.title || !req.body.description || !req.body.category || !req.body.image) {
+        return res.status(400).send("title, description, category, and image are required")
+    }
     const {title, description, category, image, author, cards} = req.body;
 
-    // create a new pet object
-    const newBoard = {
-        id: kudosboards.length+1,
-        title,
-        description,
-        category,
-        image,
-        author,
-        cards
-    }
-
-    // push new pet object onto pets array
-    kudosboards.push(newBoard)
-    // status 201 means successful creation and return new pet
-    res.status(201).json(newBoard)
+    // create a new board object
+    const newBoard = await prisma.board.create({
+        data: {
+            title,
+            description,
+            category,
+            image,
+            author,
+        }
+    })
+    console.log(newBoard)
+    res.json(newBoard)
 })
 
-// update
-router.put('/:boardId', (req, res) => {
-    // const petId = parseInt(req.params.petId)
-    const { boardId } = req.params
-    const boardIndex = kudosboards.findIndex((board) => board.id === parseInt(boardId))
-
-    if(boardIndex !== -1) {
-        const updatedBoardInfo = req.body
-        kudosboards[boardIndex] = {...kudosboards[boardIndex], ...updatedBoardInfo }
-        res.json(kudosboards[boardIndex])
-    } else {
-        res.status(404).send('Board not found')
+// update a board element
+router.put('/:boardId', async (req, res) => {
+    if (!req.body.title || !req.body.description || !req.body.category || !req.body.image) {
+        return res.status(400).send("title, description, category, and image are required")
     }
+    const boardId = parseInt(req.params.boardId)
+    const {title, description, category, image, author, cards} = req.body;
+    const updatedBoard = await prisma.board.update({
+        where: {id: boardId},
+        data: {
+            title,
+            description,
+            category,
+            image,
+            author
+        }
+    })
+    res.json(updatedBoard)
 })
 
-router.delete('/:petId', (req, res) => {
-    const { boardId } = req.params
-    const initialLength = kudosboards.length
-    kudosboards = kudosboards.filter(board => board.id !== parseInt(boardId))
-    if(kudosboards.length < initialLength) {
-        res.status(204).send("")
-    } else {
-        res.status(404).send('Board not found')
-    }
+router.delete('/:boardId', async (req, res) => {
+    const boardId = parseInt(req.params.boardId)
+    const deletedBoard = await prisma.board.delete({
+        where: {id: boardId}
+    })
+    console.log(deletedBoard);
+    res.json(deletedBoard)
 })
 
 module.exports = router;
