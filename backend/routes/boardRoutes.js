@@ -2,7 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const cors = require('cors')
-router.use(cors())
+
+const corsParams = {
+    origin: 'http://localhost:3000',
+    methods: 'GET,PUT,POST,DELETE',
+}
+router.use(cors(corsParams))
 
 
 const { PrismaClient } = require('@prisma/client')
@@ -12,7 +17,7 @@ const cardRoutes = require('./cardRoutes')
 router.use('/', cardRoutes)
 
 
-router.get('/', cors(), async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const boards = await prisma.Board.findMany();
         res.json(boards);
