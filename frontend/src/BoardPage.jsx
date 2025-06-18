@@ -4,6 +4,8 @@ import BoardCard from "./BoardCard";
 import { useState } from 'react'
 import CreateCard from './CreateCard'
 import Buttons from './Buttons'
+import { v4 as uuidv4 } from 'uuid';
+
 
 const BoardPage = ({ onClosePage, boardInfo }) => {
     const [cardModalOpen, setCardModalOpen] = useState(false);
@@ -16,15 +18,17 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
         <div className="board-page">
         <button className="back-btn" onClick={onClosePage}>&lt;</button>
         <section className="board-header">
-            <img alt="kudos board logo" />
+            <img className="logo" src="./kudoboard_logo.png" alt="kudos board logo" />
             <h1>Board Title</h1>
             {/* <button onClick={toggleCardModal}>Create a Card</button> */}
             <Buttons buttonText="Create a Card" onClick={toggleCardModal}/>
             {cardModalOpen && <CreateCard onClose={toggleCardModal} />}
         </section>
-        {/* {boardInfo.cards.map((card) => (
-            <BoardCard key={uuid4()} cardInfo={card} />
-        ))} */}
+        <section className="cards-container">
+            {boardInfo.cards.map((card) => (
+                <BoardCard key={uuidv4()} cardInfo={card} />
+            ))}
+        </section>
         </div>
     );
 };
