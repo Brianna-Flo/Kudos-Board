@@ -37,7 +37,8 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
     }
     
     const handleNewCard = (newCard) => {
-        setBoardCards((prev) => [...prev, ...newCard])
+        console.log("new board card", newCard)
+        setBoardCards((prev) => [...prev, newCard])
     }
 
     useEffect(() => {
