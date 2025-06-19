@@ -151,9 +151,7 @@ const Home = () => {
           />
         }
       </main>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </div>
   );
 };

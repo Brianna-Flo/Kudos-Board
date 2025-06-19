@@ -27,12 +27,12 @@ const BoardCard = ({cardInfo, onDelete}) => {
 
     return (
         <div className="board-card">
-            <div>
+            <div className="card-top">
                 <h2>{cardInfo.cardTitle}</h2>
                 <p>{cardInfo.cardDescription}</p>
                 <p>{cardInfo.cardAuthor}</p>
-                <img className="card-gif" src={cardInfo.gifURL}/>
-            </div>    
+            </div>
+            <img className="card-gif" src={cardInfo.gifURL}/>  
             <div className="card-btns">
                 {/* Suggestions for how to pass the value upvotes into array to map */}
                 <Buttons buttonId="upvote-btn" buttonText={`Upvote: ${upvotes}`} onClick={handleCardUpvote} />

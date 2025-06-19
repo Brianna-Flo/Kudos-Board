@@ -4,30 +4,7 @@ const filterEndpoints = ["/", "/recent",  "/celebration", "/thank-you", "/inspir
 const boardButtons = [{id: "view-btn", text: "View Board"}, {id: "delete-btn", text: "Delete Board"}]
 
 const searchButtons = [{id: "search-btn", type: "submit", text: "Search"}, {id: "clear-btn", type: "reset", text: "Clear"}]
-// const cardButtons = [{id: "upvote-btn", text: {`Upvote: ${upvotes}`}}, {id: "delete-btn", text: "Delete"}]
 const baseUrl = import.meta.env.VITE_API_URL;
-
-
-// const findBoardsBySearchTerm = (boards, searchTerm) => {
-//     const searchedBoards = boards.filter((currBoard) => {
-//       return currBoard.title.toLowerCase().includes(searchTerm.toLowerCase());
-//     })
-//     return searchedBoards;
-// } 
-
-// const filterBoardsByCategory = (boards, requestedCategory) => {
-//     // if category is all, return all boards
-//     if (!boards) {
-//         return [];
-//     }
-//     if (requestedCategory === categoryOptions[0]) { // category is all
-//         return boards;
-//     }
-//     const filteredBoards = boards.filter((currBoard) => {
-//         return currBoard.category === requestedCategory;
-//     })
-//     return filteredBoards;
-// }
 
 const fetchHelper = async () => {
     try {
@@ -55,6 +32,15 @@ const fetchSearchedBoards = async (searchTerm) => {
         console.error(error);
         return [];
     }
+}
+
+const filterHelper = async (filter) => {
+    const response = await fetch(`${baseUrl}/boards${filter}`);
+    if (!response.ok) {
+        throw new Error("Failed to fetch filtered boards");
+    }
+    const data = await response.json();
+    return data;
 }
 
 
@@ -109,15 +95,6 @@ const upvoteHelper = async (cardInfo) => {
     })
     if (!response.ok) {
         throw new Error("Failed to upvote card");
-    }
-    const data = await response.json();
-    return data;
-}
-
-const filterHelper = async (filter) => {
-    const response = await fetch(`${baseUrl}/boards${filter}`);
-    if (!response.ok) {
-        throw new Error("Failed to fetch filtered boards");
     }
     const data = await response.json();
     return data;

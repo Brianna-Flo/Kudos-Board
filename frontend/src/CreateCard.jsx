@@ -77,7 +77,7 @@ const CreateCard = ({onClose, onCreateCard}) => {
                             return (<img key={uuidv4()} src={result.images.original.url} value={result.images.original.url} onClick={handleClickOnGif} object-fit="cover" width="50%" height="150"/>)})}
                     </section>
                     } 
-                    <input type='text' name='gifURL' id='gifURL' value={chosenGif} onChange={handleGifChange} placeholder='Enter GIF URL' />
+                    <input type='text' name='gifURL' id='gifURL' value={chosenGif} onChange={handleGifChange} placeholder='Enter GIF URL' required/>
                     {/* <button type="button">Copy GIF URL</button> */}
                     <input type='text' name='cardAuthor' id='cardAuthor' placeholder='Enter owner (optional)' />
                     <button type="submit">Create Card</button>
