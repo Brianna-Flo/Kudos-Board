@@ -22,6 +22,57 @@ router.get('/', async (req, res) => {
     }
 })
 
+// board routes for filtering
+router.get('/recent', async (req, res) => {
+    try {
+        const recentBoards = await prisma.board.findMany({
+            include: {cards: true},
+            orderBy: {id: 'desc'},
+            take: 6
+        })
+        console.log("boards in order: ", recentBoards)
+        res.json(recentBoards);
+    } catch (error) {
+        res.status(500).send('Server error in filter recent');
+    }
+})
+
+router.get('/celebration', async (req, res) => {
+    try {
+        const celebrationBoards = await prisma.board.findMany({
+            include: {cards: true},
+            where: {category: {equals: 'Celebration'}}
+        })
+        res.json(celebrationBoards);
+    } catch (error) {
+        res.status(500).send('Server error in filter celebration');
+    }
+})
+
+router.get('/thank-you', async (req, res) => {
+    try {
+        const celebrationBoards = await prisma.board.findMany({
+            include: {cards: true},
+            where: {category: {equals: 'Thank You'}}
+        })
+        res.json(celebrationBoards);
+    } catch (error) {
+        res.status(500).send('Server error in filter thank you');
+    }
+})
+
+router.get('/inspiration', async (req, res) => {
+    try {
+        const celebrationBoards = await prisma.board.findMany({
+            include: {cards: true},
+            where: {category: {equals: 'Inspiration'}}
+        })
+        res.json(celebrationBoards);
+    } catch (error) {
+        res.status(500).send('Server error in filter inspiration');
+    }
+})
+
 // get board by id
 router.get('/:boardId', async (req, res) => {
     const boardId = parseInt(req.params.boardId)
