@@ -1,17 +1,23 @@
 import React from "react";
 import {useState} from 'react';
-import BoardPage from './BoardPage'
+import BoardPage from './pages/BoardPage'
 import './Board.css'
 import { boardButtons } from "./utils/utils";
 import Buttons from './Buttons'
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from "react-router-dom"
 
-const Board = ({boardInfo}) => {
+
+const Board = ({boardInfo, onDelete}) => {
     const [openBoard, setOpenBoard] = useState(false);
+
+    const navigate = useNavigate();
     
     const toggleBoardPage = () => {
-        setOpenBoard((prev) => !prev);
+        navigate(`/boards/${boardInfo.id}`)
     }
+
+
     return(
         <div>
             <div className="board-container">
@@ -19,14 +25,16 @@ const Board = ({boardInfo}) => {
                 <div className="board-info">
                     <h2>{boardInfo.title}</h2>
                     <p>{boardInfo.category}</p>
+                    <p>{boardInfo.author}</p>
                     <div className="board-btns">
                         {boardButtons.map((entry) => {
-                            return <Buttons key={uuidv4()} buttonId={entry.id} buttonText={entry.text} onClick={entry.id === "view-btn" ? toggleBoardPage : {}}/>
+                            return <Buttons key={uuidv4()} buttonId={entry.id} buttonText={entry.text} onClick={entry.id === "view-btn" ? toggleBoardPage : (() => {
+                                onDelete(boardInfo.id)
+                            })}/>
                         })}
                     </div>
                 </div>
             </div>
-            {openBoard && <BoardPage onClosePage={toggleBoardPage} boardInfo={boardInfo} />}
         </div>
     )
 }

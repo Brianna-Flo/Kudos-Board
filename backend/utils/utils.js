@@ -10,4 +10,12 @@ const checkCardInBoard = async(cardId, boardId) => {
     return card;
 }
 
-module.exports = {checkCardInBoard}
+const checkBoardExists = async(boardId) => {
+    const board = await prisma.Board.findUnique({
+            where: {id: boardId},
+            include: {cards: true}
+    })
+    return board;
+}
+
+module.exports = {checkCardInBoard, checkBoardExists}

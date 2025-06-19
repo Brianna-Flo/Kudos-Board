@@ -8,6 +8,8 @@ const prisma = new PrismaClient()
 const cardRoutes = require('./cardRoutes')
 router.use('/', cardRoutes)
 
+const {checkBoardExists} = require('../utils/utils')
+
 
 router.get('/', async (req, res) => {
     try {
@@ -24,10 +26,7 @@ router.get('/', async (req, res) => {
 router.get('/:boardId', async (req, res) => {
     const boardId = parseInt(req.params.boardId)
     try {
-        const board = await prisma.Board.findUnique({
-            where: {id: boardId},
-            include: {cards: true}
-        })
+        const board = await checkBoardExists(boardId)
 
         if (board) {
             res.json(board);
@@ -42,10 +41,10 @@ router.get('/:boardId', async (req, res) => {
 
 // create a new board
 router.post('/', async (req, res) => {
-    if (!req.body.title || !req.body.description || !req.body.category || !req.body.image) {
-        return res.status(400).send("title, description, category, and image are required")
+    if (!req.body.title || !req.body.description || !req.body.category) {
+        return res.status(400).send("title, description, and category are required")
     }
-    const {title, description, category, image, author, cards} = req.body;
+    const {title, description, category, image, author} = req.body;
 
     // create a new board object
     try {
@@ -66,17 +65,15 @@ router.post('/', async (req, res) => {
 
 // update a board element
 router.put('/:boardId', async (req, res) => {
-    if (!req.body.title || !req.body.description || !req.body.category || !req.body.image) {
-        return res.status(400).send("title, description, category, and image are required")
+    if (!req.body.title || !req.body.description || !req.body.category) {
+        return res.status(400).send("title, description, and category are required")
     }
     const boardId = parseInt(req.params.boardId)
     const {title, description, category, image, author} = req.body;
     try {    
-        const checkBoardExists = await prisma.Board.findUnique({
-            where: {id: boardId},
-        })
+        const boardExists = await checkBoardExists(boardId)
 
-        if (!checkBoardExists) {
+        if (!boardExists) {
             return res.status(404).send("Board not found")
         }
 
@@ -99,14 +96,16 @@ router.put('/:boardId', async (req, res) => {
 router.delete('/:boardId', async (req, res) => {
     const boardId = parseInt(req.params.boardId)
     try {
-        const checkBoardExists = await prisma.Board.findUnique({
-            where: {id: boardId},
-        })
+        const boardExists = await checkBoardExists(boardId);
 
-        if (!checkBoardExists) {
+        if (!boardExists) {
             return res.status(404).send("Board not found")
         }
 
+        // delete cards associated with board
+        const deletedCards = await prisma.card.deleteMany({
+            where: {boardId: boardId}
+        })
         const deletedBoard = await prisma.board.delete({
             where: {id: boardId}
         })

@@ -15,7 +15,6 @@ const CreateCard = ({onClose, onCreateCard}) => {
 
     const handleCreateCard = (event) => {
         event.preventDefault();
-        console.log(event.target.cardAuthor.value)
         const newCard = {
             cardTitle: event.target.cardTitle.value,
             cardDescription: event.target.cardDescription.value,
@@ -28,14 +27,12 @@ const CreateCard = ({onClose, onCreateCard}) => {
     }
 
     const fetchGifs = async () => {
-        console.log("search query: ", searchQuery)
         try {
             const response = await fetch (`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchQuery}&limit=4`)
             if (!response.ok) {
                 throw new Error("Failed to fetch gifs");
             }
             const data = await response.json();
-            console.log(data.data);
             setSearchResults(data.data);
             setInSearchMode(true);
         } catch (error) {
@@ -45,7 +42,6 @@ const CreateCard = ({onClose, onCreateCard}) => {
 
     const handleSearchChange = (event) => {
         event.preventDefault();
-        console.log("on change ", searchQuery)
         setSearchQuery(event.target.value)
     }
 
@@ -78,9 +74,7 @@ const CreateCard = ({onClose, onCreateCard}) => {
                     {inSearchMode && 
                     <section id="gif-results">
                         {searchResults.map((result) => {
-                            console.log(result)
-                            console.log(result.url);
-                            return (<img src={result.images.original.url} value={result.images.original.url} onClick={handleClickOnGif} object-fit="cover" width="50%" height="150"/>)})}
+                            return (<img key={uuidv4()} src={result.images.original.url} value={result.images.original.url} onClick={handleClickOnGif} object-fit="cover" width="50%" height="150"/>)})}
                     </section>
                     } 
                     <input type='text' name='gifURL' id='gifURL' value={chosenGif} onChange={handleGifChange} placeholder='Enter GIF URL' />

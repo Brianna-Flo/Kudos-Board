@@ -9,7 +9,7 @@ body {
   font-weight: 400;
 }
 
-.app-container {
+.home-container {
   text-align: center;
   display: flex;
   flex-direction: column;
