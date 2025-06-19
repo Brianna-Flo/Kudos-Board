@@ -1,4 +1,5 @@
 const categoryOptions = ["All", "Recent", "Celebration", "Thank You", "Inspiration"]
+const filterEndpoints = ["/", "/recent",  "/celebration", "/thank-you", "/inspiration"]
 
 const boardButtons = [{id: "view-btn", text: "View Board"}, {id: "delete-btn", text: "Delete Board"}]
 
@@ -99,4 +100,4 @@ const upvoteHelper = async (cardInfo) => {
     return data;
 }
 
-export {categoryOptions, boardButtons, searchButtons, findBoardsBySearchTerm, filterBoardsByCategory, fetchHelper, deleteHelper, newHelper, fetchSingleBoard, upvoteHelper}
+export {categoryOptions, filterEndpoints, boardButtons, searchButtons, findBoardsBySearchTerm, filterBoardsByCategory, fetchHelper, deleteHelper, newHelper, fetchSingleBoard, upvoteHelper}

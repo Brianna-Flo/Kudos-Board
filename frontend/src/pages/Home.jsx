@@ -7,6 +7,7 @@ import Footer from "../Footer";
 import { useState, useEffect } from "react";
 import {
   categoryOptions,
+  filterEndpoints,
   filterBoardsByCategory,
   fetchHelper,
   deleteHelper,
@@ -25,8 +26,8 @@ const Home = () => {
   const [noSearchResults, setNoSearchResults] = useState(false);
   const [noNavResults, setNoNavResults] = useState(false);
   const [navMode, setNavMode] = useState(false);
-  const [recentBoards, setRecentBoards] = useState([])
-
+  const [currentFilter, setCurrentFilter] = useState("")
+  
   // on load
   useEffect(() => {
     fetchBoardData();
@@ -41,10 +42,6 @@ const Home = () => {
     // when search mode or searched boards changes indicates action in search bar, may set no results to true
     setNoNavResults(navMode && requestedBoards.length === 0);
   }, [navMode, requestedBoards]);
-
-  useEffect(() => {
-    setRecentBoards()
-  }, [boards])
 
   const toggleModal = () => {
     setModalOpen((prev) => !prev);
@@ -61,6 +58,9 @@ const Home = () => {
 
   const handleNewBoard = async (newBoard) => {
     try {
+      // see all boards on board creation
+      setNavMode(false);
+      setSearchMode(false);
       const created = await newHelper(newBoard);
       fetchBoardData();
     } catch (error) {
@@ -76,6 +76,10 @@ const Home = () => {
     try {
       const deleted = await deleteHelper(boardId);
       fetchBoardData();
+      // if in navigation mode, reflect board deleted by refetching filtered boards
+      if (navMode) {
+        fetchFilteredBoards(currentFilter)
+      }
     } catch (error) {
       console.error(error);
     }
@@ -83,12 +87,30 @@ const Home = () => {
 
   const handleCategoryChange = (event) => {
     if (event.target.id !== "All") {
-      setRequestedBoards(filterBoardsByCategory(boards, event.target.id));
+      const indexOfEndpoint = categoryOptions.indexOf(event.target.id);
+      console.log("filter is ", event.target.id, "and index is ", indexOfEndpoint)
+      setCurrentFilter(filterEndpoints[indexOfEndpoint])
+      fetchFilteredBoards(filterEndpoints[indexOfEndpoint]);
       setNavMode(true);
     } else {
       setNavMode(false);
     }
   };
+
+  const baseUrl = import.meta.env.VITE_API_URL;
+
+  const fetchFilteredBoards = async (filter) => {
+    try {
+      const response = await fetch(`${baseUrl}/boards${filter}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch filtered boards");
+      }
+      const data = await response.json();
+      setRequestedBoards(data);
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div className="home-container">
