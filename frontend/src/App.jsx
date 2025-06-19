@@ -7,6 +7,7 @@ import Footer from './Footer';
 import {useState, useEffect} from 'react';
 import { categoryOptions, filterBoardsByCategory } from "./utils/utils";
 import { v4 as uuidv4 } from 'uuid';
+import { BoardContext } from "./BoardContext";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const baseUrl = import.meta.env.VITE_API_URL;
@@ -96,31 +97,33 @@ const App = () => {
 
 
   return (
-    <div className="app-container">
-      <section id="banner">
-        <h1>Kudos Board</h1>
-      </section>
-      <header className='homepage-header'>
-        <div className='toolbar'>
-          <SearchBar boardList={boards} onSearch={handleSearch} toggleSearchMode={toggleMode}/>
-          <div className="category-btns">
-            {categoryOptions.map((category) => {
-              // return (<CategoryButton key={uuidv4()} category={category} />)
-              return (<Buttons key={uuidv4()} buttonClass="category-btn" buttonId={category} buttonText={category} onClick={handleCategoryChange}/>)
-            })}
+    <BoardContext.Provider value={{boards, fetchBoardData}}>
+      <div className="app-container">
+        <section id="banner">
+          <h1>Kudos Board</h1>
+        </section>
+        <header className='homepage-header'>
+          <div className='toolbar'>
+            <SearchBar boardList={boards} onSearch={handleSearch} toggleSearchMode={toggleMode}/>
+            <div className="category-btns">
+              {categoryOptions.map((category) => {
+                // return (<CategoryButton key={uuidv4()} category={category} />)
+                return (<Buttons key={uuidv4()} buttonClass="category-btn" buttonId={category} buttonText={category} onClick={handleCategoryChange}/>)
+              })}
+            </div>
+            <Buttons buttonText="Create New Board" onClick={toggleModal} />
+            {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleNewBoard} />}
           </div>
-          <Buttons buttonText="Create New Board" onClick={toggleModal} />
-          {modalOpen && <CreateBoard onCloseModal={toggleModal} onCreate={handleNewBoard} />}
-        </div>
-      </header>
-      <main>
-        {
-          // if in search mode or nav mode, present search boards, otherwise present list of boards
-          <BoardList boardList={(searchMode || navMode) ? requestedBoards : boards} searchMode={searchMode} noSearchResults={noSearchResults} navMode={navMode} noNavResults={noNavResults} onDelete={handleDeleteBoard} />
-        }
-      </main>
-      <footer></footer>
-    </div>
+        </header>
+        <main>
+          {
+            // if in search mode or nav mode, present search boards, otherwise present list of boards
+            <BoardList boardList={(searchMode || navMode) ? requestedBoards : boards} searchMode={searchMode} noSearchResults={noSearchResults} navMode={navMode} noNavResults={noNavResults} onDelete={handleDeleteBoard} />
+          }
+        </main>
+        <footer></footer>
+      </div>
+    </BoardContext.Provider>
   );
 }
 

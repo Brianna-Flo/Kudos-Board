@@ -5,12 +5,16 @@ import { useState, useEffect } from 'react'
 import CreateCard from './CreateCard'
 import Buttons from './Buttons'
 import { v4 as uuidv4 } from 'uuid';
+import { useBoardContext } from "./BoardContext";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
 const BoardPage = ({ onClosePage, boardInfo }) => {
     const [cardModalOpen, setCardModalOpen] = useState(false);
-    const [boardCards, setBoardCards] = useState(boardInfo.cards)
+    const [boardCards, setBoardCards] = useState(boardInfo.cards);
+    const [refreshNeeded, setRefreshNeeded] = useState(false);  // if card was deleted, need to refetch to update state of boards when navigating back to homepage
+
+    const {fetchBoardData} = useBoardContext();
 
     const toggleCardModal = () => {
         setCardModalOpen((prev) => !prev)
@@ -31,6 +35,7 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
             console.log("deleted card", data)
             console.log("remaining cards", boardInfo.cards)
             setBoardCards(boardInfo.cards.filter((card) => {return card.id !== data.id}));
+            setRefreshNeeded(true);
         } catch (error) {
             console.error(error)
         }
@@ -45,11 +50,20 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
         console.log("board cards changed, need to refetch board from database")
     }, [boardCards])
 
-    
+    // when the page is closed, 
+    const handleClosePage = () => {
+        onClosePage();
+        if (refreshNeeded) {
+            console.log("need to refresh due to delete")
+            fetchBoardData();
+        } else {
+            console.log("didnt refresh")
+        }
+    }
 
     return (
         <div className="board-page">
-        <button className="back-btn" onClick={onClosePage}>&lt;</button>
+        <button className="back-btn" onClick={handleClosePage}>&lt;</button>
         <section className="board-header">
             <img className="logo" src="./kudoboard_logo.png" alt="kudos board logo" />
             <h1>{boardInfo.title}</h1>
