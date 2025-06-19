@@ -5,13 +5,11 @@ import CreateBoard from './CreateBoard'
 import BoardList from './BoardList';
 import Footer from './Footer';
 import {useState, useEffect} from 'react';
-import { categoryOptions, filterBoardsByCategory } from "./utils/utils";
+import { categoryOptions, filterBoardsByCategory, fetchHelper, deleteHelper, newHelper } from "./utils/utils";
 import { v4 as uuidv4 } from 'uuid';
 import { BoardContext } from "./BoardContext";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
 const baseUrl = import.meta.env.VITE_API_URL;
-// fetch(`${baseUrl}`);
 
 const App = () => {
   // hold board cards in an array of board components
@@ -24,35 +22,6 @@ const App = () => {
   const [noSearchResults, setNoSearchResults] = useState(false);
   const [noNavResults, setNoNavResults] = useState(false);
   const [navMode, setNavMode] = useState(false);
-
-  const fetchBoardData = async () => {
-    try {
-      const response = await fetch(`${baseUrl}/boards`);
-      // console.log(`${baseUrl}/boards`)
-      if (!response.ok) {
-        throw new Error("Failed to fetch board data");
-      }
-      const data = await response.json();
-      setBoards(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const handleDeleteBoard = async (boardId) => {
-    const response = await fetch(`${baseUrl}/boards/${boardId}`, {
-      method: "DELETE"
-    })
-    if (!response.ok) {
-      throw new Error("Failed to delete board")
-    }
-    const data = await response.json();
-    // update boards state to reflect deleted board
-    // fetchBoardData();
-    setBoards((prev) => {
-      return prev.filter((board) => {return board.id !== data.id})
-    })
-  }
 
   // on load
   useEffect(() => {
@@ -82,28 +51,50 @@ const App = () => {
     setSearchMode((prev) => !prev)
   }
 
-  // const handleNewBoard = (newBoard) => {
-  //   setBoards((prev) => [...prev, newBoard])
-  // }
-
   const handleNewBoard = async (newBoard) => {
     try {
-        console.log("inside handle create board ", newBoard)
-        const response = await fetch(`${baseUrl}/boards/`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newBoard)
-        })
-        if (!response.ok) {
-            throw new Error("Failed to create board");
-        }
-        const data = await response.json();
-        // fetch board data to update
+        // const response = await fetch(`${baseUrl}/boards/`, {
+        //     method: "POST",
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(newBoard)
+        // })
+        // if (!response.ok) {
+        //     throw new Error("Failed to create board");
+        // }
+        // const data = await response.json();
+        const created = await newHelper(newBoard);
         fetchBoardData();
     } catch (error) {
         console.error(error)
+    }
+  }
+
+  const fetchBoardData = async () => {
+    setBoards(await fetchHelper());
+  }
+
+  // const handleDeleteBoard = async (boardId) => {
+  //   const response = await fetch(`${baseUrl}/boards/${boardId}`, {
+  //     method: "DELETE"
+  //   })
+  //   if (!response.ok) {
+  //     throw new Error("Failed to delete board")
+  //   }
+  //   const data = await response.json();
+  //   // update boards state to reflect deleted board
+  //   fetchBoardData();
+  // }
+  const handleDeleteBoard = async (boardId) => {
+    try {
+      const deleted = await deleteHelper(boardId)
+      fetchBoardData()
+      // setBoards((prev) => {
+      //   return prev.filter((board) => {return board.id !== deleted.id})
+      // })
+    } catch (error) {
+      console.error(error)
     }
   }
 

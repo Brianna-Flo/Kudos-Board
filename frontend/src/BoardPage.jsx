@@ -21,10 +21,7 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
     }
 
     const handleDeleteCard = async (id) => {
-        console.log("card id is ", id);
         try {
-            console.log("inside handle delete card")
-            console.log("printing cards for board")
             const response = await fetch(`${baseUrl}/boards/${boardInfo.id}/cards/${id}`, {
                 method: "DELETE"
             })
@@ -32,8 +29,6 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
                 throw new Error("Failed to delete card");
             }
             const data = await response.json();
-            console.log("deleted card", data)
-            console.log("board cards", boardCards)
             setBoardCards(boardCards.filter((card) => {return card.id !== data.id}));
             setRefreshNeeded(true);
         } catch (error) {
