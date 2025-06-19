@@ -17,8 +17,6 @@ const BoardPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       const board = await fetchSingleBoard(boardId);
-      console.log(board);
-      console.log(board.cards);
       setFetchedBoardInfo(board);
       setBoardCards(board.cards);
     };

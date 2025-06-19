@@ -83,4 +83,20 @@ const fetchSingleBoard = async (boardId) => {
     }
 }
 
-export {categoryOptions, boardButtons, searchButtons, findBoardsBySearchTerm, filterBoardsByCategory, fetchHelper, deleteHelper, newHelper, fetchSingleBoard}
+const upvoteHelper = async (cardInfo) => {
+    const response = await fetch(`${baseUrl}/boards/${cardInfo.boardId}/cards/${cardInfo.id}`, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...cardInfo, 
+                                cardUpvotes: (++cardInfo.cardUpvotes),})
+    })
+    if (!response.ok) {
+        throw new Error("Failed to upvote card");
+    }
+    const data = await response.json();
+    return data;
+}
+
+export {categoryOptions, boardButtons, searchButtons, findBoardsBySearchTerm, filterBoardsByCategory, fetchHelper, deleteHelper, newHelper, fetchSingleBoard, upvoteHelper}

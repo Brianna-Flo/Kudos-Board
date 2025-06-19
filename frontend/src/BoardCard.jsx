@@ -2,6 +2,7 @@ import React from 'react';
 import Buttons from './Buttons'
 import "./BoardCard.css"
 import {useState} from 'react';
+import {upvoteHelper} from './utils/utils'
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -16,24 +17,9 @@ const BoardCard = ({cardInfo, onDelete}) => {
     }
 
     const handleCardUpvote = async () => {
-        console.log("card id: ", cardInfo.id)
         try {
-            console.log("inside handle card upvote")
-            console.log("printing card info", cardInfo)
-            const response = await fetch(`${baseUrl}/boards/${cardInfo.boardId}/cards/${cardInfo.id}`, {
-                method: "PUT",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({...cardInfo, 
-                                        cardUpvotes: (++cardInfo.cardUpvotes),})
-            })
-            if (!response.ok) {
-                throw new Error("Failed to upvote card");
-            }
-            const data = await response.json();
+            const updated = await upvoteHelper(cardInfo);
             setUpvotes(cardInfo.cardUpvotes);
-            // refreshNeeded();
         } catch (error) {
             console.error(error)
         }
