@@ -5,7 +5,8 @@ import {useState} from 'react';
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
-const BoardCard = ({cardInfo, onDelete, refreshNeeded}) => {
+// const BoardCard = ({cardInfo, onDelete, refreshNeeded}) => {
+const BoardCard = ({cardInfo, onDelete}) => {
 
     
     const [upvotes, setUpvotes] = useState(cardInfo.cardUpvotes)
@@ -32,7 +33,7 @@ const BoardCard = ({cardInfo, onDelete, refreshNeeded}) => {
             }
             const data = await response.json();
             setUpvotes(cardInfo.cardUpvotes);
-            refreshNeeded();
+            // refreshNeeded();
         } catch (error) {
             console.error(error)
         }

@@ -1,16 +1,20 @@
 import React from "react";
 import {useState} from 'react';
-import BoardPage from './BoardPage'
+import BoardPage from './pages/BoardPage'
 import './Board.css'
 import { boardButtons } from "./utils/utils";
 import Buttons from './Buttons'
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from "react-router-dom"
+
 
 const Board = ({boardInfo, onDelete}) => {
     const [openBoard, setOpenBoard] = useState(false);
+
+    const navigate = useNavigate();
     
     const toggleBoardPage = () => {
-        setOpenBoard((prev) => !prev);
+        navigate(`/boards/${boardInfo.id}`)
     }
 
 
@@ -31,7 +35,6 @@ const Board = ({boardInfo, onDelete}) => {
                     </div>
                 </div>
             </div>
-            {openBoard && <BoardPage onClosePage={toggleBoardPage} boardInfo={boardInfo} />}
         </div>
     )
 }

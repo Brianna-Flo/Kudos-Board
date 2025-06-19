@@ -69,4 +69,18 @@ const newHelper = async (newBoard) => {
     return data;
 }
 
-export {categoryOptions, boardButtons, searchButtons, findBoardsBySearchTerm, filterBoardsByCategory, fetchHelper, deleteHelper, newHelper}
+const fetchSingleBoard = async (boardId) => {
+    try {
+        const response = await fetch(`${baseUrl}/boards/${boardId}`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch board data");
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        return {};
+    }
+}
+
+export {categoryOptions, boardButtons, searchButtons, findBoardsBySearchTerm, filterBoardsByCategory, fetchHelper, deleteHelper, newHelper, fetchSingleBoard}

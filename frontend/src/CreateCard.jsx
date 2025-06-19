@@ -80,7 +80,7 @@ const CreateCard = ({onClose, onCreateCard}) => {
                         {searchResults.map((result) => {
                             console.log(result)
                             console.log(result.url);
-                            return (<img src={result.images.original.url} value={result.images.original.url} onClick={handleClickOnGif} object-fit="cover" width="50%" height="150"/>)})}
+                            return (<img key={uuidv4()} src={result.images.original.url} value={result.images.original.url} onClick={handleClickOnGif} object-fit="cover" width="50%" height="150"/>)})}
                     </section>
                     } 
                     <input type='text' name='gifURL' id='gifURL' value={chosenGif} onChange={handleGifChange} placeholder='Enter GIF URL' />
