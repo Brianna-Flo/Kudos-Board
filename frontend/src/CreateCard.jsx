@@ -30,7 +30,7 @@ const CreateCard = ({onClose, onCreateCard}) => {
     const fetchGifs = async () => {
         console.log("search query: ", searchQuery)
         try {
-            const response = await fetch (`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchQuery}&limit=1`)
+            const response = await fetch (`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchQuery}&limit=4`)
             if (!response.ok) {
                 throw new Error("Failed to fetch gifs");
             }
