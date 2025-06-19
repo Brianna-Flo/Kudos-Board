@@ -33,28 +33,42 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
             }
             const data = await response.json();
             console.log("deleted card", data)
-            console.log("remaining cards", boardInfo.cards)
-            setBoardCards(boardInfo.cards.filter((card) => {return card.id !== data.id}));
+            console.log("board cards", boardCards)
+            setBoardCards(boardCards.filter((card) => {return card.id !== data.id}));
             setRefreshNeeded(true);
         } catch (error) {
             console.error(error)
         }
     }
     
-    const handleNewCard = (newCard) => {
-        console.log("new board card", newCard)
-        setBoardCards((prev) => [...prev, newCard])
+    const handleNewCard = async (newCard) => {
+        try {
+            console.log("inside handle create card, card to create ", newCard)
+            const response = await fetch(`${baseUrl}/boards/${boardInfo.id}/cards/`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newCard)
+            })
+            if (!response.ok) {
+                throw new Error("Failed to create card");
+            }
+            const data = await response.json();
+            setBoardCards((prev) => {
+                return [...prev, data]
+            });
+            setRefreshNeeded(true);
+        } catch (error) {
+            console.error(error)
+        }
     }
-
-    useEffect(() => {
-        console.log("board cards changed, need to refetch board from database")
-    }, [boardCards])
 
     // when the page is closed, 
     const handleClosePage = () => {
         onClosePage();
         if (refreshNeeded) {
-            console.log("need to refresh due to delete")
+            console.log("need to refresh due to delete or added card")
             fetchBoardData();
         } else {
             console.log("didnt refresh")
