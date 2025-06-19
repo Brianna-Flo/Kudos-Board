@@ -19,6 +19,7 @@ const BoardCard = ({cardInfo, onDelete}) => {
             <div>
                 <h2>{cardInfo.cardTitle}</h2>
                 <p>{cardInfo.cardDescription}</p>
+                <p>{cardInfo.cardAuthor}</p>
                 <img className="card-gif" src={cardInfo.gifURL}/>
             </div>    
             <div className="card-btns">
