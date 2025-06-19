@@ -21,6 +21,7 @@ const Board = ({boardInfo, onDelete}) => {
                 <div className="board-info">
                     <h2>{boardInfo.title}</h2>
                     <p>{boardInfo.category}</p>
+                    <p>{boardInfo.author}</p>
                     <div className="board-btns">
                         {boardButtons.map((entry) => {
                             return <Buttons key={uuidv4()} buttonId={entry.id} buttonText={entry.text} onClick={entry.id === "view-btn" ? toggleBoardPage : (() => {

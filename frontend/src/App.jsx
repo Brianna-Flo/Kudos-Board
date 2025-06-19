@@ -47,6 +47,8 @@ const App = () => {
       throw new Error("Failed to delete board")
     }
     const data = await response.json();
+    // update boards state to reflect deleted board
+    // fetchBoardData();
     setBoards((prev) => {
       return prev.filter((board) => {return board.id !== data.id})
     })
@@ -99,7 +101,7 @@ const App = () => {
         }
         const data = await response.json();
         // fetch board data to update
-        // fetchBoardData();
+        fetchBoardData();
     } catch (error) {
         console.error(error)
     }

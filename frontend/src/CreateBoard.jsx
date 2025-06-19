@@ -11,8 +11,7 @@ const CreateBoard = ({onCloseModal, onCreate}) => {
             description: event.target.description.value,
             category: event.target.category.value,
             image: event.target.image.value,
-            author: event.target.author.value ? event.target.author.value : "",
-            cards: []
+            author: event.target.author.value,
         }
         onCreate(newBoard);
         onCloseModal();
@@ -37,7 +36,7 @@ const CreateBoard = ({onCloseModal, onCreate}) => {
                         <option id="inspiration" value="Inspiration">Inspiration</option>
                     </select>
                     <label htmlFor='image'>Image:</label>
-                    {/* <input type='text' name='image' id='image'/> */}
+                    <input type='text' name='image' id='image'/>
                     <label htmlFor='author'>Author:</label>
                     <input type='text' name='author' id='author'/>
                     <button className='create-board-btn' type='submit'>Create Board</button>
