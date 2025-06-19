@@ -37,10 +37,7 @@ router.get('/:boardId/cards/:cardId', async (req, res) => {
 
 // create a card that is mapped to a board
 router.post('/:boardId/cards/', async (req, res) => {
-    console.log("IN POST")
     if (!req.body.cardTitle || !req.body.cardDescription) {
-        console.log("title is: ", req.body.cardTitle)
-        console.log("description is: ", req.body.cardDescription)
         return res.status(400).send("title and description is required")
     }
     const boardId = parseInt(req.params.boardId)
@@ -70,7 +67,7 @@ router.put('/:boardId/cards/:cardId', async (req, res) => {
     }
     const boardId = parseInt(req.params.boardId)
     const cardId = parseInt(req.params.cardId)
-    const {cardDescription, gifURL, cardUpvotes,} = req.body;
+    const {cardTitle, cardDescription, gifURL, cardUpvotes, cardAuthor} = req.body;
 
     try {
         const inBoard = await checkCardInBoard(cardId, boardId);

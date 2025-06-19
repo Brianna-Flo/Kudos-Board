@@ -37,7 +37,7 @@ const CreateBoard = ({onCloseModal, onCreate}) => {
                         <option id="inspiration" value="Inspiration">Inspiration</option>
                     </select>
                     <label htmlFor='image'>Image:</label>
-                    <input type='text' name='image' id='image' required/>
+                    {/* <input type='text' name='image' id='image'/> */}
                     <label htmlFor='author'>Author:</label>
                     <input type='text' name='author' id='author'/>
                     <button className='create-board-btn' type='submit'>Create Board</button>

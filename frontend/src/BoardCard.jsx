@@ -5,21 +5,17 @@ import {useState} from 'react';
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
-const BoardCard = ({cardInfo, onDelete}) => {
+const BoardCard = ({cardInfo, onDelete, refreshNeeded}) => {
 
     
     const [upvotes, setUpvotes] = useState(cardInfo.cardUpvotes)
-    
-    // const handleUpvote = () => {
-    //     // setUpvotes((prev) => (prev + 1))
-    //     onUpvote(cardInfo)
-    // }
 
     const handleDelete = () => {
         onDelete(cardInfo.id);
     }
 
     const handleCardUpvote = async () => {
+        console.log("card id: ", cardInfo.id)
         try {
             console.log("inside handle card upvote")
             console.log("printing card info", cardInfo)
@@ -36,6 +32,7 @@ const BoardCard = ({cardInfo, onDelete}) => {
             }
             const data = await response.json();
             setUpvotes(cardInfo.cardUpvotes);
+            refreshNeeded();
         } catch (error) {
             console.error(error)
         }
@@ -51,7 +48,7 @@ const BoardCard = ({cardInfo, onDelete}) => {
             </div>    
             <div className="card-btns">
                 {/* Suggestions for how to pass the value upvotes into array to map */}
-                <Buttons buttonId="upvote-btn" buttonText={`Upvote: ${cardInfo.cardUpvotes}`} onClick={handleCardUpvote} />
+                <Buttons buttonId="upvote-btn" buttonText={`Upvote: ${upvotes}`} onClick={handleCardUpvote} />
                 <Buttons buttonId="delete-btn" buttonText="Delete" onClick={handleDelete}/>
             </div>
         </div>

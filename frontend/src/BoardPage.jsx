@@ -1,7 +1,7 @@
 import React from "react";
 import "./BoardPage.css";
 import BoardCard from "./BoardCard";
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import CreateCard from './CreateCard'
 import Buttons from './Buttons'
 import { v4 as uuidv4 } from 'uuid';
@@ -81,16 +81,12 @@ const BoardPage = ({ onClosePage, boardInfo }) => {
         <section className="board-header">
             <img className="logo" src="./kudoboard_logo.png" alt="kudos board logo" />
             <h1>{boardInfo.title}</h1>
-            {/* <button onClick={toggleCardModal}>Create a Card</button> */}
             <Buttons buttonText="Create a Card" onClick={toggleCardModal}/>
             {cardModalOpen && <CreateCard onClose={toggleCardModal} onCreateCard={handleNewCard} />}
         </section>
         <section className="cards-container">
-            {/* {boardInfo.cards.map((card) => (
-                <BoardCard key={uuidv4()} cardInfo={card}  onDelete={handleDeleteCard}/>
-            ))} */}
             {boardCards.map((card) => (
-                <BoardCard key={uuidv4()} cardInfo={card} onDelete={handleDeleteCard}/>
+                <BoardCard key={uuidv4()} cardInfo={card} onDelete={handleDeleteCard} refreshNeeded={() => setRefreshNeeded(true)}/>
             ))}
         </section>
         </div>

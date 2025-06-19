@@ -1,9 +1,6 @@
 import "./BoardList.css";
 import Board from "./Board";
-import { useState, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
-
-const baseUrl = import.meta.env.VITE_API_URL;
 
 const BoardList = ({ boardList, searchMode, noSearchResults, navMode, noNavResults, onDelete}) => {
 

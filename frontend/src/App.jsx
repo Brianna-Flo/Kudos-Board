@@ -80,8 +80,29 @@ const App = () => {
     setSearchMode((prev) => !prev)
   }
 
-  const handleNewBoard = (newBoard) => {
-    setBoards((prev) => [...prev, newBoard])
+  // const handleNewBoard = (newBoard) => {
+  //   setBoards((prev) => [...prev, newBoard])
+  // }
+
+  const handleNewBoard = async (newBoard) => {
+    try {
+        console.log("inside handle create board ", newBoard)
+        const response = await fetch(`${baseUrl}/boards/`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newBoard)
+        })
+        if (!response.ok) {
+            throw new Error("Failed to create board");
+        }
+        const data = await response.json();
+        // fetch board data to update
+        // fetchBoardData();
+    } catch (error) {
+        console.error(error)
+    }
   }
 
   const handleCategoryChange = (event) => {
