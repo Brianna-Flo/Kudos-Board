@@ -8,10 +8,10 @@ import { useState, useEffect } from "react";
 import {
   categoryOptions,
   filterEndpoints,
-  filterBoardsByCategory,
   fetchHelper,
   deleteHelper,
   newHelper,
+  filterHelper
 } from "../utils/utils";
 import { v4 as uuidv4 } from "uuid";
 
@@ -50,6 +50,7 @@ const Home = () => {
   const handleSearch = (searchedList) => {
     setRequestedBoards(searchedList);
     setSearchMode(true);
+    setNavMode(false)
   };
 
   const toggleMode = () => {
@@ -85,32 +86,27 @@ const Home = () => {
     }
   };
 
+  const fetchFilteredBoards = async (filter) => {
+    try {
+      const filteredBoards = await filterHelper(filter)
+      setRequestedBoards(filteredBoards);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const handleCategoryChange = (event) => {
     if (event.target.id !== "All") {
       const indexOfEndpoint = categoryOptions.indexOf(event.target.id);
-      console.log("filter is ", event.target.id, "and index is ", indexOfEndpoint)
       setCurrentFilter(filterEndpoints[indexOfEndpoint])
       fetchFilteredBoards(filterEndpoints[indexOfEndpoint]);
       setNavMode(true);
+      setSearchMode(false);
     } else {
       setNavMode(false);
     }
   };
 
-  const baseUrl = import.meta.env.VITE_API_URL;
-
-  const fetchFilteredBoards = async (filter) => {
-    try {
-      const response = await fetch(`${baseUrl}/boards${filter}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch filtered boards");
-      }
-      const data = await response.json();
-      setRequestedBoards(data);
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   return (
     <div className="home-container">
@@ -120,7 +116,6 @@ const Home = () => {
       <header className="homepage-header">
         <div className="toolbar">
           <SearchBar
-            boardList={boards}
             onSearch={handleSearch}
             toggleSearchMode={toggleMode}
           />

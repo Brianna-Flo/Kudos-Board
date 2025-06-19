@@ -8,26 +8,26 @@ const searchButtons = [{id: "search-btn", type: "submit", text: "Search"}, {id: 
 const baseUrl = import.meta.env.VITE_API_URL;
 
 
-const findBoardsBySearchTerm = (boards, searchTerm) => {
-    const searchedBoards = boards.filter((currBoard) => {
-      return currBoard.title.toLowerCase().includes(searchTerm.toLowerCase());
-    })
-    return searchedBoards;
-} 
+// const findBoardsBySearchTerm = (boards, searchTerm) => {
+//     const searchedBoards = boards.filter((currBoard) => {
+//       return currBoard.title.toLowerCase().includes(searchTerm.toLowerCase());
+//     })
+//     return searchedBoards;
+// } 
 
-const filterBoardsByCategory = (boards, requestedCategory) => {
-    // if category is all, return all boards
-    if (!boards) {
-        return [];
-    }
-    if (requestedCategory === categoryOptions[0]) { // category is all
-        return boards;
-    }
-    const filteredBoards = boards.filter((currBoard) => {
-        return currBoard.category === requestedCategory;
-    })
-    return filteredBoards;
-}
+// const filterBoardsByCategory = (boards, requestedCategory) => {
+//     // if category is all, return all boards
+//     if (!boards) {
+//         return [];
+//     }
+//     if (requestedCategory === categoryOptions[0]) { // category is all
+//         return boards;
+//     }
+//     const filteredBoards = boards.filter((currBoard) => {
+//         return currBoard.category === requestedCategory;
+//     })
+//     return filteredBoards;
+// }
 
 const fetchHelper = async () => {
     try {
@@ -42,6 +42,20 @@ const fetchHelper = async () => {
       return [];
     }
   }
+
+const fetchSearchedBoards = async (searchTerm) => {
+    try {
+        const response = await fetch(`${baseUrl}/boards/search?query=${searchTerm}`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch searched board data");
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
 
 
   const deleteHelper = async (boardId) => {
@@ -100,4 +114,13 @@ const upvoteHelper = async (cardInfo) => {
     return data;
 }
 
-export {categoryOptions, filterEndpoints, boardButtons, searchButtons, findBoardsBySearchTerm, filterBoardsByCategory, fetchHelper, deleteHelper, newHelper, fetchSingleBoard, upvoteHelper}
+const filterHelper = async (filter) => {
+    const response = await fetch(`${baseUrl}/boards${filter}`);
+    if (!response.ok) {
+        throw new Error("Failed to fetch filtered boards");
+    }
+    const data = await response.json();
+    return data;
+}
+
+export {categoryOptions, filterEndpoints, boardButtons, searchButtons, fetchHelper, deleteHelper, newHelper, fetchSingleBoard, upvoteHelper, filterHelper, fetchSearchedBoards}

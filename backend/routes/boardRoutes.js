@@ -73,6 +73,20 @@ router.get('/inspiration', async (req, res) => {
     }
 })
 
+router.get('/search', async (req, res) => {
+    const {query} = req.query
+    try {
+        const searchResults = await prisma.board.findMany({
+            where: {
+                title: {contains: query, mode: "insensitive"}
+            }
+        })
+        res.json(searchResults)
+    } catch (error) {
+        res.status(500).send("Server error in search")
+    }
+})
+
 // get board by id
 router.get('/:boardId', async (req, res) => {
     const boardId = parseInt(req.params.boardId)
