@@ -15,6 +15,7 @@ const CreateCard = ({onClose, onCreateCard}) => {
 
     const handleCreateCard = (event) => {
         event.preventDefault();
+        console.log(event.target.cardAuthor.value)
         const newCard = {
             cardTitle: event.target.cardTitle.value,
             cardDescription: event.target.cardDescription.value,
@@ -25,16 +26,6 @@ const CreateCard = ({onClose, onCreateCard}) => {
         onCreateCard(newCard)
         onClose();      
     }
-
-    // const handleGifSearch = (event) => {
-    //     event.preventDefault();
-    //     // setSearchQuery();
-    //     fetchGifs(event.target.searchGIFs.value)
-    // }
-
-    // useState(() => {
-    //     fetchGifs()
-    // }, [searchQuery])
 
     const fetchGifs = async () => {
         console.log("search query: ", searchQuery)
@@ -64,7 +55,7 @@ const CreateCard = ({onClose, onCreateCard}) => {
         }
     }, [searchResults, inSearchMode])
 
-    const handleClickGif = (event) => {
+    const handleClickOnGif = (event) => {
         event.preventDefault();
         setChosenGif(event.target.src);
         setInSearchMode(false);
@@ -83,17 +74,17 @@ const CreateCard = ({onClose, onCreateCard}) => {
                     <input type='text' name='cardTitle' id='cardTitle' placeholder='Enter card title' required/>
                     <input type='text' name='cardDescription' id='cardDescription' placeholder='Enter card description' required/>
                     <input type='text' name='searchGIFs' id='searchGIFs' value={searchQuery} onChange={handleSearchChange} placeholder='Search GIFs...'/>
-                    <button onClick={fetchGifs}>Search</button>
+                    <button type='button' onClick={fetchGifs}>Search</button>
                     {inSearchMode && 
                     <section id="gif-results">
                         {searchResults.map((result) => {
                             console.log(result)
                             console.log(result.url);
-                            return (<img src={result.images.original.url} value={result.images.original.url} onClick={handleClickGif} object-fit="cover" width="50%" height="150"/>)})}
+                            return (<img src={result.images.original.url} value={result.images.original.url} onClick={handleClickOnGif} object-fit="cover" width="50%" height="150"/>)})}
                     </section>
                     } 
                     <input type='text' name='gifURL' id='gifURL' value={chosenGif} onChange={handleGifChange} placeholder='Enter GIF URL' />
-                    <button>Copy GIF URL</button>
+                    {/* <button type="button">Copy GIF URL</button> */}
                     <input type='text' name='cardAuthor' id='cardAuthor' placeholder='Enter owner (optional)' />
                     <button type="submit">Create Card</button>
                 </form>

@@ -15,13 +15,11 @@ const Board = ({boardInfo}) => {
     return(
         <div>
             <div className="board-container">
-                <img className="boardImg" src={boardInfo.image}/>
+                <img className="boardImg" src={`https://picsum.photos/seed/${Math.random()}200/300`}/>
                 <div className="board-info">
                     <h2>{boardInfo.title}</h2>
                     <p>{boardInfo.category}</p>
                     <div className="board-btns">
-                        {/* <button className="view-btn buttons" onClick={toggleBoardPage}>View Board</button>
-                        <button className="delete-btn buttons">Delete Board</button> */}
                         {boardButtons.map((entry) => {
                             return <Buttons key={uuidv4()} buttonId={entry.id} buttonText={entry.text} onClick={entry.id === "view-btn" ? toggleBoardPage : {}}/>
                         })}
