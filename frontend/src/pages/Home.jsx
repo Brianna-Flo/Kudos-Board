@@ -7,10 +7,11 @@ import Footer from "../Footer";
 import { useState, useEffect } from "react";
 import {
   categoryOptions,
-  filterBoardsByCategory,
+  filterEndpoints,
   fetchHelper,
   deleteHelper,
   newHelper,
+  filterHelper
 } from "../utils/utils";
 import { v4 as uuidv4 } from "uuid";
 
@@ -25,8 +26,8 @@ const Home = () => {
   const [noSearchResults, setNoSearchResults] = useState(false);
   const [noNavResults, setNoNavResults] = useState(false);
   const [navMode, setNavMode] = useState(false);
-  const [recentBoards, setRecentBoards] = useState([])
-
+  const [currentFilter, setCurrentFilter] = useState("")
+  
   // on load
   useEffect(() => {
     fetchBoardData();
@@ -42,10 +43,6 @@ const Home = () => {
     setNoNavResults(navMode && requestedBoards.length === 0);
   }, [navMode, requestedBoards]);
 
-  useEffect(() => {
-    setRecentBoards()
-  }, [boards])
-
   const toggleModal = () => {
     setModalOpen((prev) => !prev);
   };
@@ -53,6 +50,7 @@ const Home = () => {
   const handleSearch = (searchedList) => {
     setRequestedBoards(searchedList);
     setSearchMode(true);
+    setNavMode(false)
   };
 
   const toggleMode = () => {
@@ -61,6 +59,9 @@ const Home = () => {
 
   const handleNewBoard = async (newBoard) => {
     try {
+      // see all boards on board creation
+      setNavMode(false);
+      setSearchMode(false);
       const created = await newHelper(newBoard);
       fetchBoardData();
     } catch (error) {
@@ -76,19 +77,36 @@ const Home = () => {
     try {
       const deleted = await deleteHelper(boardId);
       fetchBoardData();
+      // if in navigation mode, reflect board deleted by refetching filtered boards
+      if (navMode) {
+        fetchFilteredBoards(currentFilter)
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
+  const fetchFilteredBoards = async (filter) => {
+    try {
+      const filteredBoards = await filterHelper(filter)
+      setRequestedBoards(filteredBoards);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const handleCategoryChange = (event) => {
     if (event.target.id !== "All") {
-      setRequestedBoards(filterBoardsByCategory(boards, event.target.id));
+      const indexOfEndpoint = categoryOptions.indexOf(event.target.id);
+      setCurrentFilter(filterEndpoints[indexOfEndpoint])
+      fetchFilteredBoards(filterEndpoints[indexOfEndpoint]);
       setNavMode(true);
+      setSearchMode(false);
     } else {
       setNavMode(false);
     }
   };
+
 
   return (
     <div className="home-container">
@@ -98,7 +116,6 @@ const Home = () => {
       <header className="homepage-header">
         <div className="toolbar">
           <SearchBar
-            boardList={boards}
             onSearch={handleSearch}
             toggleSearchMode={toggleMode}
           />
