@@ -25,6 +25,7 @@ const Home = () => {
   const [noSearchResults, setNoSearchResults] = useState(false);
   const [noNavResults, setNoNavResults] = useState(false);
   const [navMode, setNavMode] = useState(false);
+  const [recentBoards, setRecentBoards] = useState([])
 
   // on load
   useEffect(() => {
@@ -40,6 +41,10 @@ const Home = () => {
     // when search mode or searched boards changes indicates action in search bar, may set no results to true
     setNoNavResults(navMode && requestedBoards.length === 0);
   }, [navMode, requestedBoards]);
+
+  useEffect(() => {
+    setRecentBoards()
+  }, [boards])
 
   const toggleModal = () => {
     setModalOpen((prev) => !prev);
@@ -129,7 +134,9 @@ const Home = () => {
           />
         }
       </main>
-      <footer></footer>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 };
