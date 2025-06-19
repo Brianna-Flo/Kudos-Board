@@ -1,6 +1,8 @@
 import React from 'react';
 import './CreateBoard.css';
 import {useState, useEffect} from 'react'
+import { v4 as uuidv4 } from 'uuid';
+
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -9,15 +11,15 @@ const CreateCard = ({onClose, onCreateCard}) => {
     const[searchQuery, setSearchQuery] = useState("");
     const[inSearchMode, setInSearchMode] = useState(false);
     const[searchResults, setSearchResults] = useState([]);
-
+    const[chosenGif, setChosenGif] = useState("");
 
     const handleCreateCard = (event) => {
         event.preventDefault();
         const newCard = {
-            cardTitle: event.target.cardtitle.value,
+            cardTitle: event.target.cardTitle.value,
             cardDescription: event.target.cardDescription.value,
             gifURL: event.target.gifURL.value,
-            cardAuthor: event.target.cardAuthor,value,
+            cardAuthor: event.target.cardAuthor.value,
             cardUpvotes: 0
         }
         onCreateCard(newCard)
@@ -37,7 +39,7 @@ const CreateCard = ({onClose, onCreateCard}) => {
     const fetchGifs = async () => {
         console.log("search query: ", searchQuery)
         try {
-            const response = await fetch (`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchQuery}&limit=2`)
+            const response = await fetch (`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchQuery}&limit=1`)
             if (!response.ok) {
                 throw new Error("Failed to fetch gifs");
             }
@@ -51,6 +53,7 @@ const CreateCard = ({onClose, onCreateCard}) => {
     }
 
     const handleSearchChange = (event) => {
+        event.preventDefault();
         console.log("on change ", searchQuery)
         setSearchQuery(event.target.value)
     }
@@ -61,6 +64,15 @@ const CreateCard = ({onClose, onCreateCard}) => {
         }
     }, [searchResults, inSearchMode])
 
+    const handleClickGif = (event) => {
+        event.preventDefault();
+        setChosenGif(event.target.src);
+        setInSearchMode(false);
+    }
+
+    const handleGifChange = (event) => {
+        setChosenGif(event.target.value)
+    }
 
     return (
         <section className='modal' id='create-card-modal'>
@@ -77,13 +89,13 @@ const CreateCard = ({onClose, onCreateCard}) => {
                         {searchResults.map((result) => {
                             console.log(result)
                             console.log(result.url);
-                            return (<img src={result.images.original.url} object-fit="cover" width="200" height="200"/>)})}
+                            return (<img src={result.images.original.url} value={result.images.original.url} onClick={handleClickGif} object-fit="cover" width="50%" height="150"/>)})}
                     </section>
                     } 
-                    <input type='text' name='gifURL' id='gifURL' placeholder='Enter GIF URL' />
+                    <input type='text' name='gifURL' id='gifURL' value={chosenGif} onChange={handleGifChange} placeholder='Enter GIF URL' />
                     <button>Copy GIF URL</button>
                     <input type='text' name='cardAuthor' id='cardAuthor' placeholder='Enter owner (optional)' />
-                    <button>Create Card</button>
+                    <button type="submit">Create Card</button>
                 </form>
             </div>
         </section>
