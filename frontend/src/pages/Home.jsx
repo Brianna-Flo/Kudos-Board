@@ -105,6 +105,7 @@ const Home = ({darkMode, onSwitch}) => {
       setNavMode(true);
       setSearchMode(false);
     } else {
+      setCurrentFilter("/");
       setNavMode(false);
     }
   };
@@ -132,7 +133,7 @@ const Home = ({darkMode, onSwitch}) => {
               return (
                 <Buttons
                   key={uuidv4()}
-                  buttonClass="category-btn"
+                  buttonClass={`category-btn ${filterEndpoints[categoryOptions.indexOf(category)]===currentFilter ? "nav-selected" : ""}`}
                   buttonId={category}
                   buttonText={category}
                   onClick={handleCategoryChange}
