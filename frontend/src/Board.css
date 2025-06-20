@@ -1,6 +1,6 @@
 .board-container {
-    /* border: 5px solid #5C6BC0;
-    background-color: #A5B4FC; */
+    /* border: 5px solid #5C6BC0;*/
+    background-color: #FFFFFF;
     /* height: 30vh; */
     width: 20vw;
     /* aspect-ratio: 1.5/2.5; */
@@ -14,12 +14,13 @@
     height: 100%;
     flex: 1 1 40%;
     min-height: 45vh;
+    color: #1C2B36
 }
 
 .board-container:hover {
     transition: all 0.4s ease-in-out;
     transform: scale(1.05) translateY(-25px);
-    box-shadow: 0 5px 15px #6366F1;
+    box-shadow: 0 5px 15px #A3C4F3;
 }
 
 .boardImg {
@@ -33,14 +34,14 @@
     width: 100%;
 }
 
-#delete-btn {
-    background-color: #6366F1;
-}
+/* #delete-btn {
+    background-color: #A3C4F3;
+} */
 
 #delete-btn:hover {
-    background-color: #818CF8;
+    background-color: #E7A3A1;
 }
 
-#view-btn:hover {
+/* #view-btn:hover {
     background-color: #E5E7EB;
-}
+} */

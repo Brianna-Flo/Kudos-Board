@@ -3,8 +3,18 @@
     cursor: pointer;
     border-radius: 6px;
     border: 1px solid grey;
+    background-color: #A3C4F3
 }
 
 .buttons:hover {
     transform: scale(1.05);
+    background-color: #B5A8E8;
+}
+
+#search-btn {
+  background-color: #A3C4F3
+}
+
+#clear-btn {
+    background-color: #E7A3A1;
 }

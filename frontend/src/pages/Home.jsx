@@ -14,8 +14,10 @@ import {
   filterHelper
 } from "../utils/utils";
 import { v4 as uuidv4 } from "uuid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faLightbulb } from "@fortawesome/free-solid-svg-icons";
 
-const Home = () => {
+const Home = ({darkMode, onSwitch}) => {
   // hold board cards in an array of board components
   const [boards, setBoards] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -110,8 +112,14 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <div className="mode">
+        <FontAwesomeIcon className="mode-btn" icon={faLightbulb} color={darkMode ? 'black' : "yellow"} onClick={onSwitch}/>
+        <FontAwesomeIcon className="mode-btn" icon={faMoon} color={darkMode ? 'yellow' : "black"} onClick={onSwitch}/>
+        {/* <input type="checkbox" id="dark-mode" />
+        <label htmlFor="dark-mode"></label> */}
+      </div>
       <section id="banner">
-        <h1>Kudos Board</h1>
+        <h2>Kudos Board</h2>
       </section>
       <header className="homepage-header">
         <div className="toolbar">

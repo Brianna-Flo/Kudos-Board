@@ -36,4 +36,11 @@
 .pin {
     align-self: flex-start;
     height: 3vh;
+    padding: 5% 0 0 5%;
+}
+
+.pin:hover,
+.pin:focus {
+    transform: scale(1.25);
+    color: #F5B7C0;
 }
