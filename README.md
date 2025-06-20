@@ -1,5 +1,3 @@
-📝 `NOTE` Use this template to initialize the contents of a README.md file for your application. As you work on your assignment over the course of the week, update the required or stretch features lists to indicate which features you have completed by changing `[ ]` to `[x]`. (🚫 Remove this paragraph before submitting your assignment.)
-
 ## Unit Assignment: Kudos Board
 
 Submitted by: Brianna Flores
@@ -15,7 +13,7 @@ Deployed Application (**required**): [Kudos Board Deployed Site]https://kudos-bo
 - [x] **Home Page Display**
   - [x] Home page includes the following features:
     - [x] Header
-    - [ ] Banner
+    - [x] Banner
     - [x] Search bar
     - [x] List of boards
     - [x] Footer
@@ -81,9 +79,9 @@ Deployed Application (**required**): [Kudos Board Deployed Site]https://kudos-bo
 - [x] **Delete Card**
   - [x] Users can delete cards.
   - [x] When the user clicks the delete button for a card, the card disappears from the grid of cards. 
-- [ ] **Deployment**
-  - [ ] Website is deployed via Render.
-  - [ ] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: For ease of grading, please use the deployed version of your website when creating your walkthrough. 
+- [x] **Deployment**
+  - [x] Website is deployed via Render.
+  - [x] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: For ease of grading, please use the deployed version of your website when creating your walkthrough. 
 
 ####  Stretch Features
 
@@ -137,28 +135,36 @@ Deployed Application (**required**): [Kudos Board Deployed Site]https://kudos-bo
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. Ensure your walkthrough showcases the presence and/or functionality of all features you implemented above (check them off as you film!). Pay attention to any **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS** checkboxes listed above to ensure graders see the full functionality of your website! (🚫 Remove this paragraph after adding walkthrough video)
-
-`ADD_EMBEDDED_CODE_HERE`
+<div>
+    <a href="https://www.loom.com/share/d5648cfd06c045fb8a45ac1f005e2f1a">
+      <p>Brianna Flores Kudos Board Walkthrough - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/d5648cfd06c045fb8a45ac1f005e2f1a">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/d5648cfd06c045fb8a45ac1f005e2f1a-5fcb90e13a3f30a4-full-play.gif">
+    </a>
+  </div>
 
 ### Reflection
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
 
-Add your response here
+Yes, coming in with no backend experience whatsoever, the lessons were well formatted to prepare me for this project and I learned how to integrate a backend with the frontend. Learning how to use a database to hold data and as well use prisma for the schemas was as well very useful
 
 * If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
   
-Add your response here
+I would have spent more time on the CSS and implement certain features such as an animated search bar
+As well I would more thuroughly interact with the website to find any more bugs in the code since no code is perfect
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+My project demo went well I believe, I was slightly unprepared for presenting the color contrast so it took a bit of time to go over that
 
 ### Open-source libraries used
 
 - Add any links to open-source libraries used in your project.
+FontAwesome
 
 ### Shout out
 
 Give a shout out to somebody from your cohort that especially helped you during your project. This can be a fellow peer, instructor, TA, mentor, etc.
+Everyone helped out! Especially with deploying since that was confusing lol
