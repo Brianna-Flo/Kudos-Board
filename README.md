@@ -166,7 +166,7 @@ As well I would more thuroughly interact with the website to find any more bugs 
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-My project demo went well I believe, I was slightly unprepared for presenting the color contrast so it took a bit of time to go over that
+My project demo went well I believe, I was slightly unprepared for presenting the color contrast so it took a bit of time to go over that and also I forgot to record the deleting a board feature but I went back and did another video to fix that
 
 ### Open-source libraries used
 
