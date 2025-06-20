@@ -6,13 +6,17 @@
     background-color: #A3C4F3
 }
 
+.dark-mode .buttons {
+    background-color: #B2B8F2;
+}
+
+.dark-mode .buttons:hover {
+    transform: scale(1.05);
+    background-color: #8A9BE8;
+}
 .buttons:hover {
     transform: scale(1.05);
     background-color: #B5A8E8;
-}
-
-#search-btn {
-  background-color: #A3C4F3
 }
 
 #clear-btn {

@@ -6,6 +6,11 @@
     padding: 2%;
 }
 
+.dark-mode .footer {
+    background-color: #B2B8F2;
+    color: #F6F3FF;
+}
+
 footer {
   width: 100%;
 }

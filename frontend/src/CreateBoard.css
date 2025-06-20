@@ -12,19 +12,24 @@
   align-items: center;
 }
 .modal-content {
-  background-color: #ffffff;
+  background-color: #FAF5F6;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 60%;
   position: relative;
-  /* max-width: 60%;
-  max-height: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: scroll;
-  border-radius: 5%; */
+}
+
+.dark-mode .modal-content {
+  background-color: #2E2D42;
+  color: #F6F3FF;
+}
+
+.dark-mode .create-board-btn {
+  background-color: #B2B8F2;
+}
+.dark-mode .create-board-btn:hover {
+  background-color: #8A9BE8;
 }
 
 .modal-content h2 {
@@ -54,6 +59,28 @@
     display: flex;
     flex-direction: column;
     text-align: left;
+}
+
+.create-card-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.create-card-form button {
+  background-color: #A3C4F3;
+}
+
+.create-card-form button:hover {
+  background-color: #B5A8E8;
+}
+
+.dark-mode .create-card-form button {
+  background-color: #B2B8F2;
+}
+
+.dark-mode .create-card-form button:hover {
+  background-color: #8A9BE8;
 }
 
 .create-board-form input, select {

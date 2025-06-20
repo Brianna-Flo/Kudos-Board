@@ -66,7 +66,7 @@ const CreateCard = ({onClose, onCreateCard}) => {
             <div className='modal-content'>
                 <button className='modal-close' onClick={onClose}>&times;</button>
                 <h2>Create a New Card</h2>
-                <form className='create-form' onSubmit={handleCreateCard}>
+                <form className='create-card-form' onSubmit={handleCreateCard}>
                     <input type='text' name='cardTitle' id='cardTitle' placeholder='Enter card title' required/>
                     <input type='text' name='cardDescription' id='cardDescription' placeholder='Enter card description' required/>
                     <input type='text' name='searchGIFs' id='searchGIFs' value={searchQuery} onChange={handleSearchChange} placeholder='Search GIFs...'/>

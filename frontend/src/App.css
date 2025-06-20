@@ -9,6 +9,10 @@ body {
   font-weight: 400;
 }
 
+body.dark-mode {
+  background-color: #1C1B2E;
+}
+
 .home-container {
   text-align: center;
   display: flex;
@@ -34,6 +38,10 @@ body {
   background-color: #A3C4F3;
 }
 
+.dark-mode #banner {
+  background-color: #B2B8F2;
+}
+
 .category-btns {
   display: flex;
   justify-content: center;
@@ -42,10 +50,9 @@ body {
 }
 
 .mode {
-    background-color: #A3C4F3;
     position: absolute;
     top: 2vh;
-    left: 2vh;
+    right: 2vh;
     font-size: 3vh;
 }
 .mode-btn {

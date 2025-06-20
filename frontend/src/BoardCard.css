@@ -1,5 +1,5 @@
 .board-card {
-    border: 1px solid blue;
+    background-color: #FFFFFF;
     width: 100%;
     max-width: 20vw;
     display: flex;
@@ -11,6 +11,16 @@
     max-width: 20vw;
     min-height: 35vh;
     margin: 1vw;
+}
+
+.board-card:hover {
+    transition: all 0.4s ease-in-out;
+    transform: scale(1.05) translateY(-25px);
+    box-shadow: 0 5px 15px #A3C4F3;
+}
+
+.dark-mode .board-card {
+    background-color: #2E2D42;
 }
 
 .card-top {

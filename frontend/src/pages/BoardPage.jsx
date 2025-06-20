@@ -8,10 +8,13 @@ import { v4 as uuidv4 } from "uuid";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchSingleBoard } from "../utils/utils";
 import Footer from '../Footer'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import '../App.css'
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
-const BoardPage = () => {
+const BoardPage = ({darkMode, onSwitch}) => {
   const {boardId} = useParams();
   const [fetchedBoardInfo, setFetchedBoardInfo] = useState({});
   const [refresh, setRefresh] = useState(false);
@@ -96,12 +99,18 @@ const BoardPage = () => {
         <button className="back-btn" onClick={handleClosePage}>
           &lt;
         </button>
+        <div className="mode">
+          <FontAwesomeIcon className="mode-btn" icon={faLightbulb} color={darkMode ? 'black' : "yellow"} onClick={onSwitch}/>
+          <FontAwesomeIcon className="mode-btn" icon={faMoon} color={darkMode ? 'yellow' : "black"} onClick={onSwitch}/>
+        </div>
         <section className="board-header">
-          <img
-            className="logo"
-            src="https://images.unsplash.com/vector-1739803316215-6edf1a5b09c9?q=80&w=2360&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="unsplash smile face"
-          />
+          <div className="img-logo">
+            <img
+              className="logo"
+              src="https://images.unsplash.com/vector-1739803316215-6edf1a5b09c9?q=80&w=2360&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="unsplash smile face"
+            />
+          </div>
           <h1>{fetchedBoardInfo.title}</h1>
           <Buttons buttonText="Create a Card" onClick={toggleCardModal} />
           {cardModalOpen && (
