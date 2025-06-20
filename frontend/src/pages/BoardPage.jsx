@@ -11,6 +11,7 @@ import Footer from '../Footer'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import '../App.css'
+import CardModal from "../CardModal";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -18,6 +19,8 @@ const BoardPage = ({darkMode, onSwitch}) => {
   const {boardId} = useParams();
   const [fetchedBoardInfo, setFetchedBoardInfo] = useState({});
   const [refresh, setRefresh] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [cardDetails, setCardDetails] = useState({});
   const navigate = useNavigate();
 
   const fetchData = async () => {
@@ -94,6 +97,11 @@ const BoardPage = ({darkMode, onSwitch}) => {
     }
   }
 
+  const handleDetailView = (cardInfo) => {
+    setDetailsOpen(true);
+    setCardDetails(cardInfo);
+  }
+
   return (
       <div className="board-page">
         <button className="back-btn" onClick={handleClosePage}>
@@ -126,10 +134,12 @@ const BoardPage = ({darkMode, onSwitch}) => {
                 onDelete={handleDeleteCard}
                 refreshData={handleRefresh}
                 onPin={() => {fetchData()}}
+                onOpenDetails={handleDetailView}
               />
             ))}
         </section>
         <Footer />
+        {detailsOpen && <CardModal cardInfo={cardDetails} onCloseModal={() => {setDetailsOpen(false)}}/>}
       </div>
   );
 };

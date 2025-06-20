@@ -9,8 +9,8 @@ import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
-const BoardCard = ({cardInfo, onDelete, refreshData, onPin}) => {
-    const [detailsOpen, setDetailsOpen] = useState(false);
+const BoardCard = ({cardInfo, onDelete, refreshData, onPin, onOpenDetails}) => {
+    // const [detailsOpen, setDetailsOpen] = useState(false);
     const [upvotes, setUpvotes] = useState(cardInfo.cardUpvotes)
     const [pinned, setPinned] = useState(cardInfo.pinned);
 
@@ -53,11 +53,12 @@ const BoardCard = ({cardInfo, onDelete, refreshData, onPin}) => {
             <img className="card-gif" src={cardInfo.gifURL}/>  
             <div className="card-btns">
                 {/* Suggestions for how to pass the value upvotes into array to map */}
-                <Buttons buttonId="details-btn" buttonText="Details" onClick={() => {setDetailsOpen(true)}} />
+                {/* <Buttons buttonId="details-btn" buttonText="Details" onClick={() => {setDetailsOpen(true)}} /> */}
+                <Buttons buttonId="details-btn" buttonText="Details" onClick={() => {onOpenDetails(cardInfo)}} />
                 <Buttons buttonId="upvote-btn" buttonText={`Upvote: ${upvotes}`} onClick={handleCardUpvote} />
                 <Buttons buttonId="delete-btn" buttonText="Delete" onClick={handleDelete}/>
             </div>
-            {detailsOpen && <CardModal cardInfo={cardInfo} onCloseModal={handleModalClose}/>}
+            {/* {detailsOpen && <CardModal cardInfo={cardInfo} onCloseModal={handleModalClose}/>} */}
         </div>
     )
 }
