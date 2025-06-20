@@ -1,15 +1,14 @@
 .board-card {
     background-color: #FFFFFF;
     width: 100%;
-    max-width: 20vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     height: 100%;
     flex: 1 1 40%;
-    max-width: 20vw;
-    min-height: 35vh;
+    max-width: 15vw;
+    min-height: 45vh;
     margin: 1vw;
 }
 
@@ -52,6 +51,6 @@
 
 .pin:hover,
 .pin:focus {
-    transform: scale(1.25);
+    transform: scale(1.5);
     color: #F5B7C0;
 }

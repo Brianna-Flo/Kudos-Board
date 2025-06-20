@@ -59,6 +59,15 @@ body.dark-mode {
   padding: 1vh;
 }
 
+.mode-btn:hover {
+  padding: 1vh;
+  transform: scale(1.5);
+}
+
+main {
+  margin-bottom: 1vh;
+}
+
 /* .mode label {
   width: 500px;
   height: 200px;

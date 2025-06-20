@@ -1,6 +1,6 @@
 .board-list {
     display: flex;
-    gap: 5%;
+    gap: 2%;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;

@@ -116,8 +116,6 @@ const Home = ({darkMode, onSwitch}) => {
       <div className="mode">
         <FontAwesomeIcon className="mode-btn" icon={faLightbulb} color={darkMode ? 'black' : "yellow"} onClick={onSwitch}/>
         <FontAwesomeIcon className="mode-btn" icon={faMoon} color={darkMode ? 'yellow' : "black"} onClick={onSwitch}/>
-        {/* <input type="checkbox" id="dark-mode" />
-        <label htmlFor="dark-mode"></label> */}
       </div>
       <section id="banner">
         <h2>Kudos Board</h2>
