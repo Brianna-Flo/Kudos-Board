@@ -14,7 +14,7 @@ const {checkBoardExists} = require('../utils/utils')
 router.get('/', async (req, res) => {
     try {
         const boards = await prisma.Board.findMany({
-            include: {cards: {include: {comments: true}}}
+            include: {cards: {include: {comments: true}}},
         });
         res.json(boards);
     } catch (error) {
@@ -77,7 +77,8 @@ router.get('/search', async (req, res) => {
     const {query} = req.query
     try {
         const searchResults = await prisma.board.findMany({
-            include: {cards: {include: {comments: true}}},
+            include: {cards: {include: {comments: true},
+                                        orderBy: {pinned: 'desc'}}},
             where: {
                 title: {contains: query, mode: "insensitive"}
             }

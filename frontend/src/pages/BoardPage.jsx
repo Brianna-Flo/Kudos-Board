@@ -17,13 +17,14 @@ const BoardPage = () => {
   const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
 
-  // when board id changes (a new page is navigated to), refetch data
-  useEffect(() => {
-    const fetchData = async () => {
+  const fetchData = async () => {
       const board = await fetchSingleBoard(boardId);
       setFetchedBoardInfo(board);
       setBoardCards(board.cards);
-    };
+  };
+
+  // when board id changes (a new page is navigated to), refetch data
+  useEffect(() => {
     fetchData();
   }, [boardId, refresh]);
 
@@ -115,6 +116,7 @@ const BoardPage = () => {
                 cardInfo={card}
                 onDelete={handleDeleteCard}
                 refreshData={handleRefresh}
+                onPin={() => {fetchData()}}
               />
             ))}
         </section>

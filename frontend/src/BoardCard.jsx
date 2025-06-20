@@ -9,7 +9,7 @@ import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
-const BoardCard = ({cardInfo, onDelete, refreshData}) => {
+const BoardCard = ({cardInfo, onDelete, refreshData, onPin}) => {
     const [detailsOpen, setDetailsOpen] = useState(false);
     const [upvotes, setUpvotes] = useState(cardInfo.cardUpvotes)
     const [pinned, setPinned] = useState(cardInfo.pinned);
@@ -34,8 +34,9 @@ const BoardCard = ({cardInfo, onDelete, refreshData}) => {
 
     const handlePin = async () => {
         try {
-            const updated = await pinnedHelper(cardInfo, pinned);
+            const updated = await pinnedHelper(cardInfo);
             setPinned((prev) => !prev)
+            onPin()
         } catch (error) {
             console.error(error)
         }

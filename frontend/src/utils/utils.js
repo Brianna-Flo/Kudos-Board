@@ -100,14 +100,14 @@ const upvoteHelper = async (cardInfo) => {
     return data;
 }
 
-const pinnedHelper = async (cardInfo, pinned) => {
+const pinnedHelper = async (cardInfo) => {
     const response = await fetch(`${baseUrl}/boards/${cardInfo.boardId}/cards/${cardInfo.id}`, {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({...cardInfo, 
-                                pinned: (!pinned),})
+                                pinned: (!cardInfo.pinned),})
     })
     if (!response.ok) {
         throw new Error("Failed to pin card");
