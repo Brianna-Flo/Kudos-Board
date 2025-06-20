@@ -14,7 +14,7 @@ const {checkBoardExists} = require('../utils/utils')
 router.get('/', async (req, res) => {
     try {
         const boards = await prisma.Board.findMany({
-            include: {cards: true}
+            include: {cards: {include: {comments: true}}}
         });
         res.json(boards);
     } catch (error) {
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 router.get('/recent', async (req, res) => {
     try {
         const recentBoards = await prisma.board.findMany({
-            include: {cards: true},
+            include: {cards: {include: {comments: true}}},
             orderBy: {id: 'desc'},
             take: 6
         })
@@ -40,7 +40,7 @@ router.get('/recent', async (req, res) => {
 router.get('/celebration', async (req, res) => {
     try {
         const celebrationBoards = await prisma.board.findMany({
-            include: {cards: true},
+            include: {cards: {include: {comments: true}}},
             where: {category: {equals: 'Celebration'}}
         })
         res.json(celebrationBoards);
@@ -52,7 +52,7 @@ router.get('/celebration', async (req, res) => {
 router.get('/thank-you', async (req, res) => {
     try {
         const celebrationBoards = await prisma.board.findMany({
-            include: {cards: true},
+            include: {cards: {include: {comments: true}}},
             where: {category: {equals: 'Thank You'}}
         })
         res.json(celebrationBoards);
@@ -64,7 +64,7 @@ router.get('/thank-you', async (req, res) => {
 router.get('/inspiration', async (req, res) => {
     try {
         const celebrationBoards = await prisma.board.findMany({
-            include: {cards: true},
+            include: {cards: {include: {comments: true}}},
             where: {category: {equals: 'Inspiration'}}
         })
         res.json(celebrationBoards);
@@ -77,6 +77,7 @@ router.get('/search', async (req, res) => {
     const {query} = req.query
     try {
         const searchResults = await prisma.board.findMany({
+            include: {cards: {include: {comments: true}}},
             where: {
                 title: {contains: query, mode: "insensitive"}
             }
