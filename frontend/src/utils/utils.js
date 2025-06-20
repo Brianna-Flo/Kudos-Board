@@ -100,4 +100,20 @@ const upvoteHelper = async (cardInfo) => {
     return data;
 }
 
-export {categoryOptions, filterEndpoints, boardButtons, searchButtons, fetchHelper, deleteHelper, newHelper, fetchSingleBoard, upvoteHelper, filterHelper, fetchSearchedBoards}
+const pinnedHelper = async (cardInfo) => {
+    const response = await fetch(`${baseUrl}/boards/${cardInfo.boardId}/cards/${cardInfo.id}`, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...cardInfo, 
+                                pinned: (!cardInfo.pinned),})
+    })
+    if (!response.ok) {
+        throw new Error("Failed to pin card");
+    }
+    const data = await response.json();
+    return data;
+}
+
+export {categoryOptions, filterEndpoints, boardButtons, searchButtons, fetchHelper, deleteHelper, newHelper, fetchSingleBoard, upvoteHelper, filterHelper, fetchSearchedBoards, pinnedHelper}

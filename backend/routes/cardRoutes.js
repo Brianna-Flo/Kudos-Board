@@ -13,6 +13,7 @@ router.get("/:boardId/cards", async (req, res) => {
   const boardId = parseInt(req.params.boardId);
   try {
     const cards = await prisma.card.findMany({
+      orderBy: [{pinned: 'desc'}],
       include: { comments: true },
       where: { boardId: boardId }, // returns all cards whos boardId is boardId
     });
@@ -43,7 +44,7 @@ router.post("/:boardId/cards/", async (req, res) => {
     return res.status(400).send("title and description is required");
   }
   const boardId = parseInt(req.params.boardId);
-  const { cardTitle, cardDescription, gifURL, cardUpvotes, cardAuthor } =
+  const { cardTitle, cardDescription, gifURL, cardUpvotes, cardAuthor, pinned } =
     req.body;
 
   try {
@@ -54,6 +55,7 @@ router.post("/:boardId/cards/", async (req, res) => {
         gifURL,
         cardUpvotes,
         cardAuthor,
+        pinned,
         board: { connect: { id: boardId } },
       },
     });
@@ -69,7 +71,7 @@ router.put("/:boardId/cards/:cardId", async (req, res) => {
   }
   const boardId = parseInt(req.params.boardId);
   const cardId = parseInt(req.params.cardId);
-  const { cardTitle, cardDescription, gifURL, cardUpvotes, cardAuthor } =
+  const { cardTitle, cardDescription, gifURL, cardUpvotes, cardAuthor, pinned } =
     req.body;
 
   try {
@@ -88,6 +90,7 @@ router.put("/:boardId/cards/:cardId", async (req, res) => {
         gifURL,
         cardUpvotes,
         cardAuthor,
+        pinned,
         board: { connect: { id: boardId } },
       },
     });

@@ -3,15 +3,16 @@ import Buttons from './Buttons'
 import "./BoardCard.css"
 import CardModal from './CardModal'
 import {useState} from 'react';
-import {upvoteHelper} from './utils/utils'
+import {pinnedHelper, upvoteHelper} from './utils/utils'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
-const BoardCard = ({cardInfo, onDelete, refreshData}) => {
+const BoardCard = ({cardInfo, onDelete, refreshData, onPin}) => {
     const [detailsOpen, setDetailsOpen] = useState(false);
     const [upvotes, setUpvotes] = useState(cardInfo.cardUpvotes)
+    const [pinned, setPinned] = useState(cardInfo.pinned);
 
     const handleDelete = () => {
         onDelete(cardInfo.id);
@@ -31,9 +32,19 @@ const BoardCard = ({cardInfo, onDelete, refreshData}) => {
         refreshData(refreshNeeded)
     }
 
+    const handlePin = async () => {
+        try {
+            const updated = await pinnedHelper(cardInfo);
+            setPinned((prev) => !prev)
+            onPin()
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
         <div className="board-card">
-            <FontAwesomeIcon icon={faMapPin}/>
+            <FontAwesomeIcon icon={faMapPin} className="pin" color={pinned ? "red" : "black"}onClick={handlePin}/>
             <div className="card-top">
                 <h2>{cardInfo.cardTitle}</h2>
                 <p>{cardInfo.cardDescription}</p>

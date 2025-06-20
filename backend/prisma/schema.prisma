@@ -32,6 +32,7 @@ model Card {
   gifURL String
   cardUpvotes Int @default(0)
   cardAuthor String?
+  pinned Boolean @default(false)
   comments Comment[]
   boardId Int
   board Board @relation(fields: [boardId], references: [id])
