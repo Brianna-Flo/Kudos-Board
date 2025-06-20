@@ -33,6 +33,7 @@
     width: 100%;
 }
 
-.card-btns button{
-    /* width: 50%; */
+.pin {
+    align-self: flex-start;
+    height: 3vh;
 }

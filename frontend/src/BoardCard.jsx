@@ -44,7 +44,7 @@ const BoardCard = ({cardInfo, onDelete, refreshData, onPin}) => {
 
     return (
         <div className="board-card">
-            <FontAwesomeIcon icon={faMapPin} color={pinned ? "red" : "black"}onClick={handlePin}/>
+            <FontAwesomeIcon icon={faMapPin} className="pin" color={pinned ? "red" : "black"}onClick={handlePin}/>
             <div className="card-top">
                 <h2>{cardInfo.cardTitle}</h2>
                 <p>{cardInfo.cardDescription}</p>
