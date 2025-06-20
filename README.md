@@ -144,6 +144,15 @@ Deployed Application (**required**): [Kudos Board Deployed Site]https://kudos-bo
     </a>
   </div>
 
+  <div>
+    <a href="https://www.loom.com/share/8cf15424588348579010bfb5ff1d9a65">
+      <p>Delete Board Functionality - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/8cf15424588348579010bfb5ff1d9a65">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/8cf15424588348579010bfb5ff1d9a65-74317e11690837c7-full-play.gif">
+    </a>
+  </div>
+
 ### Reflection
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
