@@ -14,6 +14,7 @@ const baseUrl = import.meta.env.VITE_API_URL;
 const BoardPage = () => {
   const {boardId} = useParams();
   const [fetchedBoardInfo, setFetchedBoardInfo] = useState({});
+  const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
 
   // when board id changes (a new page is navigated to), refetch data
@@ -24,7 +25,7 @@ const BoardPage = () => {
       setBoardCards(board.cards);
     };
     fetchData();
-  }, [boardId]);
+  }, [boardId, refresh]);
 
   const [cardModalOpen, setCardModalOpen] = useState(false);
   const [boardCards, setBoardCards] = useState(fetchedBoardInfo.cards);
@@ -83,6 +84,12 @@ const BoardPage = () => {
     navigate(`/`);
   };
 
+  const handleRefresh = (refreshNeeded) => {
+    if (refreshNeeded) {
+      setRefresh(true)
+    }
+  }
+
   return (
       <div className="board-page">
         <button className="back-btn" onClick={handleClosePage}>
@@ -107,6 +114,7 @@ const BoardPage = () => {
                 key={uuidv4()}
                 cardInfo={card}
                 onDelete={handleDeleteCard}
+                refreshData={handleRefresh}
               />
             ))}
         </section>

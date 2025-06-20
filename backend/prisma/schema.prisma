@@ -32,6 +32,15 @@ model Card {
   gifURL String
   cardUpvotes Int @default(0)
   cardAuthor String?
+  comments Comment[]
   boardId Int
   board Board @relation(fields: [boardId], references: [id])
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  commentMessage String
+  commentAuthor String?
+  cardId Int
+  card Card @relation(fields: [cardId], references: [id])
 }
