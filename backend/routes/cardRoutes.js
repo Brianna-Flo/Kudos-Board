@@ -73,6 +73,7 @@ router.put("/:boardId/cards/:cardId", async (req, res) => {
   const cardId = parseInt(req.params.cardId);
   const { cardTitle, cardDescription, gifURL, cardUpvotes, cardAuthor, pinned } =
     req.body;
+  console.log("before try")
 
   try {
     const inBoard = await checkCardInBoard(cardId, boardId);
@@ -81,7 +82,23 @@ router.put("/:boardId/cards/:cardId", async (req, res) => {
         .status(404)
         .send(`Card ${cardId} not found in board ${boardId}`);
     }
+    console.log("here")
 
+    let newOrder = 1;
+    if (pinned) {
+        console.log("pinned is true")
+        const order = await prisma.Card.findFirst({
+            orderBy: {orderPinned: 'desc'},
+            where: {boardId: boardId,
+                pinned: true
+            },
+            select: {orderPinned: true}
+        })
+        // console.log("got the first pinned item if any ", order !== null)
+        newOrder = (order !== null) ? (order.orderPinned + 1) : 1;
+        console.log(newOrder)
+    }
+    console.log("out of new order stuff")
     const updatedCard = await prisma.Card.update({
       where: { id: cardId },
       data: {
@@ -91,9 +108,11 @@ router.put("/:boardId/cards/:cardId", async (req, res) => {
         cardUpvotes,
         cardAuthor,
         pinned,
+        orderPinned: pinned ? newOrder : null,
         board: { connect: { id: boardId } },
       },
     });
+    console.log("updated card")
     res.json(updatedCard);
   } catch (error) {
     res.status(500).send("An error occurred while updating the card");
