@@ -24,7 +24,7 @@ const checkBoardExists = async(boardId) => {
     const board = await prisma.Board.findUnique({
             where: {id: boardId},
             include: {cards: {include: {comments: true},
-                                        orderBy: [{pinned: 'desc'}, {orderPinned: 'desc'}]}},
+                                        orderBy: [{pinned: 'desc'}, {orderPinned: 'desc'}, {id: "desc"}]}},
     })
     return board;
 }

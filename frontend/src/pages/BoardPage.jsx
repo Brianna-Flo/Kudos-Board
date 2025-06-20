@@ -79,9 +79,7 @@ const BoardPage = ({darkMode, onSwitch}) => {
         throw new Error("Failed to create card");
       }
       const data = await response.json();
-      setBoardCards((prev) => {
-        return [...prev, data];
-      });
+      fetchData();
     } catch (error) {
       console.error(error);
     }

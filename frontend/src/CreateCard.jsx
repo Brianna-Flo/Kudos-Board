@@ -2,6 +2,7 @@ import React from 'react';
 import './CreateBoard.css';
 import {useState, useEffect} from 'react'
 import { v4 as uuidv4 } from 'uuid';
+import Buttons from './Buttons'
 
 
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -70,16 +71,17 @@ const CreateCard = ({onClose, onCreateCard}) => {
                     <input type='text' name='cardTitle' id='cardTitle' placeholder='Enter card title' required/>
                     <input type='text' name='cardDescription' id='cardDescription' placeholder='Enter card description' required/>
                     <input type='text' name='searchGIFs' id='searchGIFs' value={searchQuery} onChange={handleSearchChange} placeholder='Search GIFs...'/>
-                    <button type='button' onClick={fetchGifs}>Search</button>
+                    <Buttons buttonType='button' buttonClass="card-search" buttonText="Search" onClick={fetchGifs} />
                     {inSearchMode && 
                     <section id="gif-results">
                         {searchResults.map((result) => {
-                            return (<img key={uuidv4()} src={result.images.original.url} value={result.images.original.url} onClick={handleClickOnGif} object-fit="cover" width="50%" height="150"/>)})}
+                            return (<img key={uuidv4()} src={result.images.original.url} className="gif-pics" value={result.images.original.url} onClick={handleClickOnGif}/>)})}
                     </section>
                     } 
                     <input type='text' name='gifURL' id='gifURL' value={chosenGif} onChange={handleGifChange} placeholder='Enter GIF URL' required/>
                     <input type='text' name='cardAuthor' id='cardAuthor' placeholder='Enter owner (optional)' />
-                    <button type="submit">Create Card</button>
+                    {/* <button type="submit">Create Card</button> */}
+                    <Buttons buttonType="submit" buttonClass="card-submit" buttonText="Create Card" />
                 </form>
             </div>
         </section>

@@ -1,5 +1,6 @@
 import React from "react";
 import './CreateBoard.css'
+import './Buttons.css'
 
 const CreateBoard = ({onCloseModal, onCreate}) => {
 
@@ -10,7 +11,7 @@ const CreateBoard = ({onCloseModal, onCreate}) => {
             title: event.target.boardTitle.value,
             description: event.target.description.value,
             category: event.target.category.value,
-            image: event.target.image.value,
+            image: `https://picsum.photos/seed/${Math.random()}300/500`,
             author: event.target.author.value,
         }
         onCreate(newBoard);
@@ -29,17 +30,16 @@ const CreateBoard = ({onCloseModal, onCreate}) => {
                     <input type='text' name='description' id='description' required/>
                     <label>Category:</label>
                     <select id="category" name='category' required>
-                        {/* TODO change to map to list of categories?? */}
                         <option value=''>Select a category</option>
                         <option id='celebration' value='Celebration'>Celebration</option>
                         <option id='thank-you' value='Thank You'>Thank You</option>
                         <option id="inspiration" value="Inspiration">Inspiration</option>
                     </select>
-                    <label htmlFor='image'>Image:</label>
-                    <input type='text' name='image' id='image'/>
+                    {/* <label htmlFor='image'>Image:</label>
+                    <input type='text' name='image' id='image'/> */}
                     <label htmlFor='author'>Author:</label>
                     <input type='text' name='author' id='author'/>
-                    <button className='create-board-btn' type='submit'>Create Board</button>
+                    <button className='create-board-btn buttons' type='submit'>Create Board</button>
                 </form>
             </div>
         </section>

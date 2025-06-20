@@ -18,7 +18,7 @@ const Board = ({ boardInfo, onDelete }) => {
     <div className="board-container">
       <img
         className="boardImg"
-        src={`https://picsum.photos/seed/${Math.random()}300/500`}
+        src={boardInfo.image}
       />
       <div className="board-info">
         <h2>{boardInfo.title}</h2>

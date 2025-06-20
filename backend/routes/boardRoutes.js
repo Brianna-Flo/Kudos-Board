@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
       include: {
         cards: {
           include: { comments: true },
-          orderBy: [{ pinned: "desc" }, { orderPinned: "desc" }],
+          orderBy: [{ pinned: "desc" }, { orderPinned: "desc" }, {id: "desc"}],
         },
       },
     });
